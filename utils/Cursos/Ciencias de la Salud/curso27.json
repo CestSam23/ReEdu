@@ -1,5 +1,5 @@
 {
-  "_id": "idc27",
+  "_id":{"$oid":"68a1608c5beb60997f3d1d8b"},
   "title": "Física aplicada al cuerpo",
   "description": "Cinemática, dinámica y electricidad en la vida cotidiana",
   "resources": [

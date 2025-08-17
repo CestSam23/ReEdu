@@ -1,5 +1,5 @@
 {
-  "_id": "idc33",
+  "_id":{"$oid":"68a1622e5beb60997f3d1d91"},
   "title": "Derivada de una función",
   "description": "Definición y reglas en funciones algebraicas y trascendentales",
   "resources": [

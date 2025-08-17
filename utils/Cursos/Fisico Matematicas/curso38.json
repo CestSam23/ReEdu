@@ -1,5 +1,5 @@
 {
-  "_id": "idc38",
+  "_id":{"$oid":"68a1629c5beb60997f3d1d96"},
   "title": "Energía y electricidad",
   "description": "Energía mecánica y conceptos básicos de electricidad",
   "resources": [

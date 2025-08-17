@@ -1,5 +1,5 @@
 {
-  "_id": "idc35",
+  "_id":{"$oid":"68a162555beb60997f3d1d93"},
   "title": "Estructura atómica y tabla periódica",
   "description": "Partículas subatómicas, configuración electrónica y propiedades",
   "resources": [

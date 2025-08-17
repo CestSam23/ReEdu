@@ -1,5 +1,5 @@
 {
-  "_id": "idc36",
+  "_id":{"$oid":"68a1626f5beb60997f3d1d94"},
   "title": "Enlaces y reacciones químicas",
   "description": "Enlaces iónico, covalente y metálico; tipos de reacciones",
   "resources": [

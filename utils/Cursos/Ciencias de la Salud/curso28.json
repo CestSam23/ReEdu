@@ -1,5 +1,5 @@
 {
-  "_id": "idc28",
+  "_id":{"$oid":"68a1609f5beb60997f3d1d8c"},
   "title": "Psicología y conducta humana",
   "description": "Bases biológicas, personalidad, aprendizaje y emociones",
   "resources": [
