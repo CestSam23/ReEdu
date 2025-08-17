@@ -1,7 +1,9 @@
-
 import { useMemo, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Escritorio.css";
+// justo bajo los imports
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+
 
 // === TU DATA DE PRUEBA (igual que la que tenías) ===
 const CATEGORIES = [
@@ -144,36 +146,50 @@ export default function Escritorio() {
   const openTopic = async (label) => {
     setViewerOpen(true);
     setLoadingTopic(true);
+    setTopicData(null);
+
+    // Construye un término rico: categoría + nodo (mejor recall)
+    const termino = `${category.name} ${label}`;
 
     try {
-      // Ajusta este endpoint a tu back. Ejemplos válidos:
-      // GET /api/courses/:categoryId/topics/:topicSlug
-      // GET /api/topics?category=cultura-digital-1&topic=primeros-pasos
-      const res = await fetch(
-        `/api/topics?category=${encodeURIComponent(active)}&topic=${encodeURIComponent(slug(label))}`
-      );
+      const res = await fetch(`${API_URL}/api/cursos/buscar`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ termino, page: 1, limit: 10 })
+      });
+      const data = await res.json().catch(() => ({}));
 
-      if (!res.ok) throw new Error("No OK");
-      const data = await res.json();
-      setTopicData(normalizeTopic(data, label));
-    } catch (e) {
-      // Fallback para pruebas si aún no está tu back:
-      const demoFromDB = {
-        title: "Cultura Digital I – Uso crítico de tecnologías. I2 C2",
-        description: "Buenas prácticas de seguridad y servicios digitales.",
-        resources: [
-          { type: "pdf", url: "https://www.imss.gob.mx/sites/all/statics/pdf/guarderias/ninos-tecnologia.pdf" }
-          // Puedes probar: { type:"video", url:"https://www.youtube.com/watch?v=dQw4w9WgXcQ" }
-          // o MP4:       { type:"video", url:"https://ejemplo.com/video.mp4" }
+      // El controlador puede devolver { ok, items: [] } o un array directo (según tu versión)
+      const items = Array.isArray(data?.items) ? data.items
+                   : Array.isArray(data)       ? data
+                   : [];
+
+      // Convierte cada documento en un 'resource' para tu visor
+      const resources = items.map((doc) => pickBestResourceFromDoc(doc));
+
+      // Si no vino nada, deja un fallback amable
+      const topic = {
+        title: `${category.name} — ${label}`,
+        description: items[0]?.description || "",
+        resources: resources.length ? resources : [
+          { type: "html", html: `<h2>${label}</h2><p>No se encontraron recursos con "${termino}".</p>`, label: "Mensaje" }
         ],
-        lessons: [
-          {
-            title: "Seguridad y servicios digitales",
-            content: "<h1>Seguridad básica</h1><p>Usa contraseñas robustas y comprende servicios digitales como el correo electrónico.</p>"
-          }
-        ]
+        // si quieres, también puedes exponer el primer HTML “bonito”:
+        html: items.find(d => d?.lessons?.[0]?.content)?.lessons?.[0]?.content || ""
       };
-      setTopicData(normalizeTopic(demoFromDB, label));
+
+      setTopicData(topic);
+    } catch (e) {
+      console.error(e);
+      // Fallback local si el back no responde (útil para pruebas)
+      setTopicData({
+        title: `${category.name} — ${label}`,
+        description: "Recurso de ejemplo (fallback).",
+        resources: [
+          { type: "pdf", url: "https://www.imss.gob.mx/sites/all/statics/pdf/guarderias/ninos-tecnologia.pdf", label: "PDF ejemplo" }
+        ],
+        html: `<h1>${label}</h1><p>Contenido de ejemplo.</p>`
+      });
     } finally {
       setLoadingTopic(false);
     }
@@ -431,6 +447,46 @@ function toYouTubeEmbed(url) {
   } catch {
     return null;
   }
+}
+
+function toYouTubeId(url) {
+  try {
+    const u = new URL(url);
+    if (u.hostname.includes("youtu.be")) return u.pathname.slice(1);
+    if (u.hostname.includes("youtube.com")) return u.searchParams.get("v");
+    return null;
+  } catch { return null; }
+}
+
+// Devuelve un resource {type: 'pdf'|'video'|'html'|'link', url?, videoId?, label?}
+function pickBestResourceFromDoc(doc) {
+  // 1) resources estandarizados
+  if (Array.isArray(doc?.resources) && doc.resources.length) {
+    const r = doc.resources[0];
+    if (r.type === "video" && r.url) {
+      const id = toYouTubeId(r.url);
+      return id ? { type:"video", videoId:id, label: doc.title || "Video", url: r.url }
+                : { type:"link", url: r.url, label: doc.title || "Video" };
+    }
+    if (r.type === "pdf" && r.url)  return { type:"pdf", url: r.url, label: doc.title || "PDF" };
+    if (r.type === "image" && r.url) return { type:"image", url: r.url, label: doc.title || "Imagen" };
+    if (r.type === "paragraph") {
+      // prueba con lessons[0].content como HTML abajo
+    }
+  }
+
+  // 2) campos directos tipo/url/videoId
+  if (doc?.type === "pdf" && doc?.url)     return { type:"pdf", url: doc.url, label: doc.title || "PDF" };
+  if (doc?.type === "link" && doc?.url)    return { type:"link", url: doc.url, label: doc.title || "Recurso" };
+  if (doc?.type === "video" && doc?.videoId)
+    return { type:"video", videoId: doc.videoId, label: doc.title || "Video" };
+
+  // 3) usa HTML de la primera lección si existe
+  const html = doc?.lessons?.[0]?.content;
+  if (html) return { type:"html", html, label: doc?.lessons?.[0]?.title || doc.title || "Lectura" };
+
+  // 4) fallback mínimo
+  return { type:"html", html:`<h2>${doc.title||"Recurso"}</h2><p>${doc.description||"Sin descripción"}</p>`, label: doc.title || "Recurso" };
 }
 
 
