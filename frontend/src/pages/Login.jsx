@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "./Home.css";   // Reusa estilos (btn, tipografías, etc.)
-import "./Login.css";  // Estilos específicos del Login
+import "./Home.css";
+import "./Login.css";
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -10,6 +11,7 @@ export default function Login() {
   const [showPass, setShowPass] = useState(false);
   const [touched, setTouched] = useState({ email: false, pass: false });
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email);
   const passOk = form.pass.length >= 8;
@@ -17,6 +19,7 @@ export default function Login() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    setError("");
     setForm((f) => ({ ...f, [name]: value }));
   };
 
@@ -27,16 +30,35 @@ export default function Login() {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    if (!formOk) return;
+    if (!formOk || loading) return;
     setLoading(true);
+    setError("");
 
     try {
-      // TODO: aquí va tu llamada real al backend /firebase/etc.
-      await new Promise((r) => setTimeout(r, 800));
-      navigate("/"); // Redirige al Home tras login exitoso
+      const res = await fetch(`${API_URL}/api/auth/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: form.email.trim().toLowerCase(),
+          password: form.pass
+        })
+      });
+
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data.ok) {
+        const msg = data?.msg || `Error ${res.status}`;
+        throw new Error(msg);
+      }
+
+      // Guarda token por si luego lo necesitas
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("user", JSON.stringify(data.user));
+
+      // Ir al escritorio
+      navigate("/escritorio");
     } catch (err) {
       console.error(err);
-      alert("No se pudo iniciar sesión. Intenta de nuevo.");
+      setError(err.message || "No se pudo iniciar sesión.");
     } finally {
       setLoading(false);
     }
@@ -44,15 +66,11 @@ export default function Login() {
 
   return (
     <div className="login-wrapper">
-      {/* Header negro como en Home */}
       <header className="login-header">
-        <Link to="/" className="login-title-left">
-          Página de inicio
-        </Link>
+        <Link to="/" className="login-title-left">Página de inicio</Link>
         <h1 className="login-title-right">Iniciar sesión</h1>
       </header>
 
-      {/* Fondo morado/negro sin video */}
       <div className="login-bg" />
 
       <main className="login-main">
@@ -60,9 +78,7 @@ export default function Login() {
           <h2 className="login-title">¡Qué bueno verte de vuelta!</h2>
           <p className="login-subtitle">Accede para continuar aprendiendo.</p>
 
-          <label className="login-label" htmlFor="email">
-            Correo electrónico
-          </label>
+          <label className="login-label" htmlFor="email">Correo electrónico</label>
           <input
             id="email"
             name="email"
@@ -75,13 +91,9 @@ export default function Login() {
             autoComplete="email"
             required
           />
-          {touched.email && !emailOk && (
-            <span className="login-error">Ingresa un correo válido.</span>
-          )}
+          {touched.email && !emailOk && <span className="login-error">Ingresa un correo válido.</span>}
 
-          <label className="login-label" htmlFor="pass">
-            Contraseña
-          </label>
+          <label className="login-label" htmlFor="pass">Contraseña</label>
           <div className="login-pass">
             <input
               id="pass"
@@ -105,20 +117,16 @@ export default function Login() {
             </button>
           </div>
           {touched.pass && !passOk && (
-            <span className="login-error">
-              La contraseña debe tener al menos 8 caracteres.
-            </span>
+            <span className="login-error">La contraseña debe tener al menos 8 caracteres.</span>
           )}
+
+          {error && <div className="login-error global">{error}</div>}
 
           <div className="login-actions">
             <label className="login-remember">
               <input type="checkbox" /> Recuérdame
             </label>
-
-            {/* Cambia la ruta si luego creas /recuperar */}
-            <Link className="login-link" to="/recuperar">
-              ¿Olvidaste tu contraseña?
-            </Link>
+            <Link className="login-link" to="/recuperar">¿Olvidaste tu contraseña?</Link>
           </div>
 
           <button className="btn login-submit" disabled={!formOk || loading}>
@@ -127,9 +135,7 @@ export default function Login() {
 
           <p className="login-footer">
             ¿No tienes cuenta?{" "}
-            <Link to="/registro" className="login-link">
-              Regístrate
-            </Link>
+            <Link to="/registro" className="login-link">Regístrate</Link>
           </p>
         </form>
       </main>
