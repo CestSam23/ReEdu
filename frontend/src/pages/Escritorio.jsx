@@ -267,7 +267,7 @@ function ViewerModal({ open, onClose, topic, loading }) {
   if (!open) return null;
 
   const resources = topic?.resources ?? [];
-  const hasHtml = !!topic?.html;
+  //const hasHtml = !!topic?.html;
 
   return (
     <div className="modal-overlay" onClick={onClose}>
