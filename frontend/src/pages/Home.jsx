@@ -276,6 +276,10 @@ export default function Home() {
           <summary>Olvidé mi contraseña</summary>
           <p>En la página de login, haz clic en "Olvidé mi contraseña".</p>
         </details>
+        <details>
+          <summary>¿Cómo inscribirme en un curso?</summary>
+          <p>Navega a la página del curso y haz clic en "Inscribirse".</p>
+        </details>
       </section>
     </div>
   )

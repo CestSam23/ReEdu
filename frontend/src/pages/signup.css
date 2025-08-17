@@ -1,13 +1,15 @@
 :root{
-  --bg: #ffffff;
-  --text: #111827;
-  --muted: #6b7280;
+  --bg: radial-gradient(1200px 600px at 20% 10%, rgba(108, 92, 231, 0.25), transparent 60%),
+    radial-gradient(900px 500px at 80% 80%, rgba(108, 92, 231, 0.18), transparent 60%),
+    linear-gradient(135deg, #0b0716 0%, #120a2a 40%, #1a1038 70%, #2b1655 100%);
+  --text: #ffff;
+  --muted: #ffff;
 
   --question-size: clamp(28px, 6vw, 40px); 
   --card-width: 560px;                 
 
-  --input-bd: #d1d5db;
-  --input-bg: #fff;
+  --input-bd: #6c5ce7;
+  --input-bg: rgba(255,255,255,0.08);
   --input-radius: 12px;
   --input-pad: 16px 18px;
   --input-font: 18px;
@@ -16,7 +18,7 @@
   --error-bd: #ef4444;
   --error-ring: #ef444433;
 
-  --btn-bg: #111827;
+  --btn-bg: rgba(0, 0, 0, 0.5);
   --btn-text: #fff;
   --btn-radius: 12px;
   --btn-pad: 14px 18px;
@@ -64,11 +66,11 @@
   outline: none;
   transition: border .15s, box-shadow .15s, background .15s;
 }
-.input::placeholder{ color: #9ca3af; }
+.input::placeholder{ color: #685a68; }
 .input:focus{
   border-color: var(--focus-bd);
   box-shadow: 0 0 0 3px var(--focus-ring);
-  background: #fff;
+  background: rgba(255,255,255,0.08);
 }
 .input.error{
   border-color: var(--error-bd);
@@ -98,6 +100,8 @@
   font-size: var(--btn-font);
   cursor: pointer;
   transition: filter .15s, transform .05s, background .15s, color .15s, border .15s;
+  border-color: rgba(0, 0, 0, 0.5);
+  
 }
 .btn:hover{ filter: brightness(0.97); }
 .btn:active{ transform: translateY(1px); }
@@ -112,5 +116,22 @@
   font-weight: 800;
   font-size: var(--btn-font);
   cursor: pointer;
+  border-color: rgba(0, 0, 0, 0.5);
   transition: filter .15s, transform .05s, background .15s, color .15s, border .15s;
 }
+
+.muted {
+  opacity: 0.85;
+  font-size: 20px;
+}
+
+.login-link {
+  color: #bdb4ff; /* tono suave de tu paleta */
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.login-link:hover {
+  text-decoration: underline;
+}
+
