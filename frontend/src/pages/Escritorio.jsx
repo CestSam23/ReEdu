@@ -86,78 +86,95 @@ const slug = (s) =>
 
 export default function Escritorio() {
   const [active, setActive] = useState(CATEGORIES[0].id);
-  const category = useMemo(() => CATEGORIES.find((c) => c.id === active) ?? CATEGORIES[0], [active]);
+  const category = useMemo(
+    () => CATEGORIES.find((c) => c.id === active) ?? CATEGORIES[0],
+    [active]
+  );
 
-  // Estados para el visor/modal
+  // ---- NUEVO: estado para el visor/modal
   const [viewerOpen, setViewerOpen] = useState(false);
   const [topicData, setTopicData] = useState(null);
   const [loadingTopic, setLoadingTopic] = useState(false);
-  
-  // Nuevos estados para búsqueda
-  const [searchResults, setSearchResults] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [searchLoading, setSearchLoading] = useState(false);
 
-  // Layout del árbol (igual que antes)
-  const layout = useMemo(() => { /* ... */ }, [category]);
+  // Layout del árbol (igual que el tuyo)
+  const layout = useMemo(() => {
+    const colGap = 220;
+    const rowGap = 100;
+    const startX = 260;
+    const baseY  = 200;
+    const nodes = [];
+    const edges = [];
 
-  // Función unificada para manejar clicks en nodos
-  const handleNodeClick = async (label) => {
-    setSearchTerm(label); // Guarda el término buscado
-    await buscarContenido(label); // Ejecuta la búsqueda
+    category.nodes.forEach((label, i) => {
+      let x = startX + i * colGap;
+      if (i === 3) x -= 40;
+      const off = i === 0 ? 0 : (i % 2 === 0 ? (i / 2) * -1 : Math.ceil(i / 2));
+      const y = baseY + off * rowGap;
+
+      nodes.push({ id: `n-${i}`, label, x, y, isRoot: i === 0 });
+    });
+
+    if (nodes[0] && nodes[1]) edges.push({ from: nodes[0], to: nodes[1] });
+    if (nodes[1] && nodes[2]) edges.push({ from: nodes[1], to: nodes[2] });
+    if (nodes[1] && nodes[3]) edges.push({ from: nodes[1], to: nodes[3] });
+    for (let i = 4; i < nodes.length; i++) edges.push({ from: nodes[i - 1], to: nodes[i] });
+
+    const width = Math.max(1100, startX + (category.nodes.length + 1) * colGap);
+    const height = 680;
+
+    return { nodes, edges, width, height };
+  }, [category]);
+
+  // Normalizador para que coincida con tu BD de ejemplo
+  const normalizeTopic = (d, fallbackTitle) => {
+    // d puede venir tal cual tu documento completo o sólo una lección
+    const firstLesson = d?.lessons?.[0] ?? null;
+    return {
+      title: d?.title || firstLesson?.title || fallbackTitle || "Tema",
+      description: d?.description || "",
+      // recursos directos + (opcional) mapear videos/pdf adicionales
+      resources: Array.isArray(d?.resources) ? d.resources : [],
+      // contenido HTML (si existe)
+      html: firstLesson?.content || d?.content || ""
+    };
   };
 
-  // Búsqueda modificada para cargar el modal
-  const buscarContenido = async (terminoBusqueda) => {
-    setSearchLoading(true);
-    setViewerOpen(true); // Abre el modal
-    
+  // ---- NUEVO: al hacer click, abrimos modal y cargamos el contenido
+  const openTopic = async (label) => {
+    setViewerOpen(true);
+    setLoadingTopic(true);
+
     try {
-      const response = await fetch('/api/cursos/busqueda-global', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ termino: terminoBusqueda })
-      });
+      // Ajusta este endpoint a tu back. Ejemplos válidos:
+      // GET /api/courses/:categoryId/topics/:topicSlug
+      // GET /api/topics?category=cultura-digital-1&topic=primeros-pasos
+      const res = await fetch(
+        `/api/topics?category=${encodeURIComponent(active)}&topic=${encodeURIComponent(slug(label))}`
+      );
 
-      const data = await response.json();
-
-      if (!response.ok) throw new Error(data.error || 'Error en la búsqueda');
-
-      // Procesar primer resultado para el modal
-      if (data.length > 0) {
-        const primerResultado = data[0];
-        setTopicData({
-          title: primerResultado.title || terminoBusqueda,
-          description: primerResultado.matches[0]?.fragmento || '',
-          resources: [],
-          html: `<h2>${primerResultado.title}</h2>
-                ${primerResultado.matches.map(m => 
-                  `<div class="match">
-                    <h3>${m.campo}</h3>
-                    <p>${m.fragmento}</p>
-                  </div>`
-                ).join('')}`
-        });
-      } else {
-        setTopicData({
-          title: terminoBusqueda,
-          description: `No se encontraron resultados para "${terminoBusqueda}"`,
-          resources: [],
-          html: `<p>Intenta con otro término de búsqueda</p>`
-        });
-      }
-
-      setSearchResults(data);
-    } catch (error) {
-      console.error('Error:', error);
-      setTopicData({
-        title: "Error",
-        description: error.message,
-        resources: [],
-        html: `<div class="error">${error.message}</div>`
-      });
+      if (!res.ok) throw new Error("No OK");
+      const data = await res.json();
+      setTopicData(normalizeTopic(data, label));
+    } catch (e) {
+      // Fallback para pruebas si aún no está tu back:
+      const demoFromDB = {
+        title: "Cultura Digital I – Uso crítico de tecnologías. I2 C2",
+        description: "Buenas prácticas de seguridad y servicios digitales.",
+        resources: [
+          { type: "pdf", url: "https://www.imss.gob.mx/sites/all/statics/pdf/guarderias/ninos-tecnologia.pdf" }
+          // Puedes probar: { type:"video", url:"https://www.youtube.com/watch?v=dQw4w9WgXcQ" }
+          // o MP4:       { type:"video", url:"https://ejemplo.com/video.mp4" }
+        ],
+        lessons: [
+          {
+            title: "Seguridad y servicios digitales",
+            content: "<h1>Seguridad básica</h1><p>Usa contraseñas robustas y comprende servicios digitales como el correo electrónico.</p>"
+          }
+        ]
+      };
+      setTopicData(normalizeTopic(demoFromDB, label));
     } finally {
-      setSearchLoading(false);
+      setLoadingTopic(false);
     }
   };
 
@@ -195,7 +212,7 @@ export default function Escritorio() {
                 key={n.id}
                 className={`t2-node ${n.isRoot ? "root" : ""}`}
                 style={{ left: n.x, top: n.y }}
-                onClick={() => handleNodeClick(n.label)} // Usa la función unificada
+                onClick={() => openTopic(n.label)}
                 title={n.label}
               >
                 <span className="t2-title">{n.label}</span>
@@ -206,60 +223,15 @@ export default function Escritorio() {
         </div>
       </section>
 
-      {/* MODAL + RESULTADOS */}
+      {/* === NUEVO: MODAL DEL VISOR === */}
       <ViewerModal
         open={viewerOpen}
         onClose={() => setViewerOpen(false)}
         topic={topicData}
-        loading={searchLoading}
+        loading={loadingTopic}
       />
-
-      {/* PANEL DE RESULTADOS (opcional) */}
-      {searchResults.length > 0 && (
-        <div className="results-panel">
-          <ResultadosBusqueda 
-            termino={searchTerm} 
-            resultados={searchResults} 
-            onSelect={setTopicData}
-          />
-        </div>
-      )}
     </div>
   );
-}
-
-function ResultadosBusqueda({ termino, resultados, onSelect }) {
-  return (
-    <div className="resultados-busqueda">
-      <h3>Resultados para "{termino}"</h3>
-      <div className="resultados-container">
-        {resultados.map((curso) => (
-          <div key={curso._id} className="card-curso">
-            <h4>{curso.title}</h4>
-            <button 
-              onClick={() => onSelect({
-                title: curso.title,
-                html: curso.matches.map(m => `
-                  <div class="match">
-                    <h3>${m.campo}</h3>
-                    <p>${m.fragmento}</p>
-                  </div>
-                `).join('')
-              })}
-            >
-              Ver detalles
-            </button>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-// Helper para resaltar texto
-function resaltarTermino(texto, termino) {
-  const regex = new RegExp(`(${termino})`, 'gi');
-  return texto.replace(regex, '<mark>$1</mark>');
 }
 
 /* =======================
@@ -355,6 +327,7 @@ function ResourceViewer({ res }) {
 
   // PDF
   if (res.type === "pdf" && res.url) {
+    // Si el servidor del PDF bloquea iframes (X-Frame-Options), al menos mostramos el botón "Abrir"
     return (
       <div className="frame-wrap">
         <iframe
@@ -429,7 +402,10 @@ function ResourceViewer({ res }) {
 }
 
 function HtmlViewer({ html }) {
-  const safe = html;
+  // 🔒 Recomendado: sanitizar con DOMPurify (npm i dompurify) antes de inyectar
+  // import DOMPurify from "dompurify";
+  // const safe = DOMPurify.sanitize(html);
+  const safe = html; // usa DOMPurify en producción
   return (
     <div className="html-wrap" dangerouslySetInnerHTML={{ __html: safe }} />
   );
