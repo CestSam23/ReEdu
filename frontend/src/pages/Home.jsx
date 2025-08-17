@@ -1,24 +1,177 @@
 import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import bgVideo from '../assets/hero.mp4' // tu video aquí
-import './Home.css' // tu CSS específico para Home
+import bgVideo from '../assets/hero.mp4'
+import './Home.css'
 
 export default function Home() {
   const faqRef = useRef(null)
   const [activeTab, setActiveTab] = useState('populares')
+  const carouselRef = useRef(null)
+  const [showSkillsTree, setShowSkillsTree] = useState(false)
+  const [expandedNodes, setExpandedNodes] = useState([])
 
-  // Ejemplo de datos de cursos
+  // Datos del árbol de habilidades
+  const skillsTree = {
+    'Físico Matemáticas': {
+      expanded: false,
+      children: {
+        'Matemáticas Avanzadas': {
+          expanded: false,
+          children: {
+            'Cálculo Diferencial': {},
+            'Álgebra Lineal': {}
+          }
+        },
+        'Física': {
+          expanded: false,
+          children: {
+            'Mecánica Clásica': {},
+            'Electromagnetismo': {}
+          }
+        }
+      }
+    },
+    'Económico Administrativas': {
+      expanded: false,
+      children: {
+        'Administración': {
+          expanded: false,
+          children: {
+            'Recursos Humanos': {},
+            'Finanzas Corporativas': {}
+          }
+        },
+        'Economía': {
+          expanded: false,
+          children: {
+            'Microeconomía': {},
+            'Macroeconomía': {}
+          }
+        }
+      }
+    },
+    'Químico Biológicas': {
+      expanded: false,
+      children: {
+        'Biología': {
+          expanded: false,
+          children: {
+            'Genética': {},
+            'Bioquímica': {}
+          }
+        },
+        'Química': {
+          expanded: false,
+          children: {
+            'Química Orgánica': {},
+            'Química Analítica': {}
+          }
+        }
+      }
+    },
+    'Humanidades': {
+      expanded: false,
+      children: {
+        'Filosofía': {
+          expanded: false,
+          children: {
+            'Ética': {},
+            'Lógica': {}
+          }
+        },
+        'Literatura': {
+          expanded: false,
+          children: {
+            'Literatura Universal': {},
+            'Redacción': {}
+          }
+        }
+      }
+    },
+    'Ciencias de la Salud': {
+      expanded: false,
+      children: {
+        'Medicina': {
+          expanded: false,
+          children: {
+            'Anatomía': {},
+            'Farmacología': {}
+          }
+        },
+        'Nutrición': {
+          expanded: false,
+          children: {
+            'Dietética': {},
+            'Bioquímica Nutricional': {}
+          }
+        }
+      }
+    }
+  }
+
+  // Alternar expansión de un nodo
+  const toggleNode = (nodePath) => {
+    setExpandedNodes(prev => {
+      if (prev.includes(nodePath)) {
+        return prev.filter(path => !path.startsWith(nodePath))
+      } else {
+        return [...prev, nodePath]
+      }
+    })
+  }
+
+  // Renderizar árbol recursivamente
+  const renderTree = (treeData, level = 0, path = '') => {
+    return Object.entries(treeData).map(([name, node]) => {
+      const nodePath = path ? `${path}.${name}` : name
+      const isExpanded = expandedNodes.includes(nodePath)
+      const hasChildren = Object.keys(node.children || {}).length > 0
+
+      return (
+        <div key={nodePath} className="tree-level">
+          <div 
+            className={`tree-node ${level === 0 ? 'main' : 'sub'}${hasChildren ? ' has-children' : ''}${isExpanded ? ' expanded' : ''}`}
+            onClick={() => hasChildren && toggleNode(nodePath)}
+          >
+            {level > 0 && <div className="tree-connector"></div>}
+            {name}
+          </div>
+          {isExpanded && hasChildren && (
+            <div className="skills-tree">
+              {renderTree(node.children, level + 1, nodePath)}
+            </div>
+          )}
+        </div>
+      )
+    })
+  }
+
+  // Carrusel y otras funciones
   const populares = [
     { titulo: 'React Básico', descripcion: 'Aprende los fundamentos de React.' },
-    { titulo: 'Node.js Express', descripcion: 'Desarrolla APIs con Node y Express.' }
+    { titulo: 'Node.js Express', descripcion: 'Desarrolla APIs con Node y Express.' },
+    { titulo: 'Node.js Express', descripcion: 'Desarrolla APIs con Node y Express.' },
+    { titulo: 'Node.js Express', descripcion: 'Desarrolla APIs con Node y Express.' },
+    {titulo: 'Node.js Express', descripcion: 'Desarrolla APIs con Node y Express.' },
   ]
   const recientes = [
     { titulo: 'Python para Data Science', descripcion: 'Introducción a análisis de datos.' },
-    { titulo: 'Docker Essentials', descripcion: 'Conteneriza tus aplicaciones.' }
+    { titulo: 'Docker Essentials', descripcion: 'Conteneriza tus aplicaciones.' },
+    { titulo: 'Machine Learning 101', descripcion: 'Fundamentos de Machine Learning.' },
+    { titulo: 'Introducción a la IA', descripcion: 'Conceptos básicos de Inteligencia Artificial.' }
   ]
 
   const scrollToFAQ = () => {
     faqRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }
+
+  const scrollCarousel = (direction) => {
+    if (!carouselRef.current) return
+    const width = carouselRef.current.offsetWidth
+    carouselRef.current.scrollBy({
+      left: direction * width * 0.5,
+      behavior: 'smooth'
+    })
   }
 
   return (
@@ -53,41 +206,63 @@ export default function Home() {
         {/* Títulos con pestañas */}
         <div className="courses-tabs">
           <button
-            className={`tab${activeTab === 'populares' ? ' active' : ''}`}
+            className={`tab ${activeTab === 'populares' ? 'active' : ''}`}
             onClick={() => setActiveTab('populares')}
           >
             Cursos Populares
           </button>
           <button
-            className={`tab${activeTab === 'recientes' ? ' active' : ''}`}
+            className={`tab ${activeTab === 'recientes' ? 'active' : ''}`}
             onClick={() => setActiveTab('recientes')}
           >
             Cursos Recientemente Agregados
           </button>
         </div>
 
-        {/* Carrusel */}
-        <div className="courses-carousel">
-          {activeTab === 'populares' &&
-            populares.map((curso, index) => (
-              <div key={index} className="course-card">
-                <div className="course-image">Imagen</div>
-                <h3>{curso.titulo}</h3>
-                <p>{curso.descripcion}</p>
-              </div>
-            ))
-          }
+        {/* Contenedor relativo para flechas */}
+        <div className="carousel-wrapper">
+          <button className="carousel-arrow left" onClick={() => scrollCarousel(-1)}>&lt;</button>
+          <div className="courses-carousel" ref={carouselRef}>
+            {activeTab === 'populares' &&
+              populares.map((curso, index) => (
+                <div key={index} className="course-card">
+                  <div className="course-image">Imagen</div>
+                  <h3>{curso.titulo}</h3>
+                  <p>{curso.descripcion}</p>
+                </div>
+              ))
+            }
 
-          {activeTab === 'recientes' &&
-            recientes.map((curso, index) => (
-              <div key={index} className="course-card">
-                <div className="course-image">Imagen</div>
-                <h3>{curso.titulo}</h3>
-                <p>{curso.descripcion}</p>
-              </div>
-            ))
-          }
+            {activeTab === 'recientes' &&
+              recientes.map((curso, index) => (
+                <div key={index} className="course-card">
+                  <div className="course-image">Imagen</div>
+                  <h3>{curso.titulo}</h3>
+                  <p>{curso.descripcion}</p>
+                </div>
+              ))
+            }
+          </div>
+          <button className="carousel-arrow right" onClick={() => scrollCarousel(1)}>&gt;</button>
         </div>
+      </section>
+
+      {/* Nueva sección del árbol de habilidades */}
+      <section className="home-skills">
+        <div className="skills-title">Nuestro árbol de habilidades</div>
+        <p className="skills-description">
+          Explora nuestro mapa completo de habilidades organizadas en un árbol de aprendizaje. 
+          Cada rama representa un área de conocimiento y te muestra el camino recomendado para dominarla.
+        </p>
+        <button className="skills-toggle" onClick={() => setShowSkillsTree(!showSkillsTree)}>
+          {showSkillsTree ? 'Ocultar árbol' : 'Mostrar árbol de habilidades'}
+        </button>
+        
+        {showSkillsTree && (
+          <div className="skills-tree">
+            {renderTree(skillsTree)}
+          </div>
+        )}
       </section>
 
       {/* Sección de Preguntas frecuentes al final */}
@@ -95,11 +270,11 @@ export default function Home() {
         <h2>Preguntas frecuentes</h2>
         <details>
           <summary>¿Cómo creo una cuenta?</summary>
-          <p>Haz clic en “Registro” y completa el formulario.</p>
+          <p>Haz clic en "Registro" y completa el formulario.</p>
         </details>
         <details>
           <summary>Olvidé mi contraseña</summary>
-          <p>En la página de login, haz clic en “Olvidé mi contraseña”.</p>
+          <p>En la página de login, haz clic en "Olvidé mi contraseña".</p>
         </details>
       </section>
     </div>
