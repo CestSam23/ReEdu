@@ -1,5 +1,5 @@
 {
-    "_id": "idc10",
+    "_id":{"$oid":"68a15d435beb60997f3d1d79"},
     "title": "Inglés II – Rutinas y actividades cotidianas. S2 C1",
     "description": "Uso del presente simple para rutinas diarias.",
     "resources": [

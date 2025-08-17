@@ -1,5 +1,5 @@
 {
-  "_id": "idc1",
+  "_id":{"$oid":"68a15bf25beb60997f3d1d70"},
   "title": "Lengua y Comunicacion I",
   "description": "Oración y Párrafo",
   "resources": [

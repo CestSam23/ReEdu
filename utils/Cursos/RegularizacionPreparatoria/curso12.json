@@ -1,5 +1,5 @@
 {
-    "_id": "idc12",
+    "_id":{"$oid":"68a15d775beb60997f3d1d7b"},
     "title": "Ciencias Sociales II – Ciudadanía y normas sociales. S2 E2",
     "description": "Derechos, deberes y normas de la ciudadanía.",
     "resources": [

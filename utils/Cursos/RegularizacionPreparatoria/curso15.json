@@ -1,5 +1,5 @@
 {
-    "_id": "idc15",
+    "_id":{"$oid":"68a15dad5beb60997f3d1d7e"},
     "title": "Inglés III – Hábitos, responsabilidades y experiencias",
     "description": "Uso de expresiones para rutinas y experiencias en pasado.",
     "resources": [
