@@ -1,0 +1,158 @@
+.home-container {
+  position: relative;
+  min-height: 100vh;
+  color: white;
+  font-family: sans-serif;
+}
+
+/* Video de fondo */
+.home-video {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  z-index: -2;
+}
+
+.home-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.5);
+  z-index: -1;
+}
+
+/* Header negro superior */
+.home-header {
+  background: black;
+  padding: 16px 24px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.home-header h1 {
+  margin: 0;
+  font-size: 20px;
+}
+
+/* Botones y contenido */
+.home-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 120px 24px 60px;
+  text-align: center;
+}
+
+.home-buttons {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+.btn {
+  padding: 12px 24px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  background-color: #6c5ce7;
+  color: white;
+  transition: transform 0.15s, opacity 0.2s;
+}
+.btn:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+.btn-ghost {
+  background-color: rgba(255,255,255,0.1);
+}
+
+/* Slogan grande */
+.home-slogan {
+  font-size: clamp(28px, 6vw, 64px);
+  font-weight: 800;
+  margin-bottom: 80px;
+}
+
+/* Preguntas frecuentes al final */
+.home-faq {
+  max-width: 800px;
+  margin: 0 auto 60px;
+  background: rgba(0,0,0,0.5);
+  padding: 24px;
+  border-radius: 12px;
+}
+.home-faq details {
+  margin: 12px 0;
+  padding: 12px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 8px;
+}
+.home-faq summary {
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.home-courses {
+  margin: 80px auto 60px;
+  max-width: 1000px;
+  padding: 24px;
+}
+
+.courses-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 24px;
+  background: black;
+  padding: 8px 16px;
+  border-radius: 16px;
+}
+
+.tab {
+  background: transparent;
+  border: none;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  padding: 8px 16px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.tab:hover {
+  background: rgba(255,255,255,0.1);
+}
+.tab.active {
+  background: #6c5ce7;
+}
+
+.courses-carousel {
+  display: flex;
+  overflow-x: auto;
+  gap: 16px;
+  padding-bottom: 12px;
+  scroll-behavior: smooth;
+}
+
+.course-card {
+  min-width: 220px;
+  background: rgba(0,0,0,0.5);
+  padding: 16px;
+  border-radius: 12px;
+  flex-shrink: 0;
+  text-align: center;
+}
+
+.course-image {
+  height: 120px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 12px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
