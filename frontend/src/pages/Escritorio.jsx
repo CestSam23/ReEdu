@@ -1,11 +1,8 @@
-import { useMemo, useState, useEffect } from "react";
+import { useMemo, useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import "./Escritorio.css";
-// justo bajo los imports
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
-
-// === TU DATA DE PRUEBA (igual que la que tenías) ===
+// === DATA DE PRUEBA ===
 const CATEGORIES = [
   {
     id: "cultura-digital-1",
@@ -94,12 +91,15 @@ export default function Escritorio() {
     [active]
   );
 
-  // ---- NUEVO: estado para el visor/modal
+  // Viewer existente
   const [viewerOpen, setViewerOpen] = useState(false);
   const [topicData, setTopicData] = useState(null);
   const [loadingTopic, setLoadingTopic] = useState(false);
 
-  // Layout del árbol (igual que el tuyo)
+  // Chat Gemini
+  const [chatOpen, setChatOpen] = useState(false);
+
+  // Layout del árbol
   const layout = useMemo(() => {
     const colGap = 220;
     const rowGap = 100;
@@ -128,68 +128,47 @@ export default function Escritorio() {
     return { nodes, edges, width, height };
   }, [category]);
 
-  // Normalizador para que coincida con tu BD de ejemplo
+  // Normalizador BD
   const normalizeTopic = (d, fallbackTitle) => {
-    // d puede venir tal cual tu documento completo o sólo una lección
     const firstLesson = d?.lessons?.[0] ?? null;
     return {
       title: d?.title || firstLesson?.title || fallbackTitle || "Tema",
       description: d?.description || "",
-      // recursos directos + (opcional) mapear videos/pdf adicionales
       resources: Array.isArray(d?.resources) ? d.resources : [],
-      // contenido HTML (si existe)
       html: firstLesson?.content || d?.content || ""
     };
   };
 
-  // ---- NUEVO: al hacer click, abrimos modal y cargamos el contenido
+  // Click en nodo => abrir modal de contenido
   const openTopic = async (label) => {
     setViewerOpen(true);
     setLoadingTopic(true);
-    setTopicData(null);
-
-    // Construye un término rico: categoría + nodo (mejor recall)
-    const termino = `${category.name} ${label}`;
 
     try {
-      const res = await fetch(`${API_URL}/api/cursos/buscar`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ termino, page: 1, limit: 10 })
-      });
-      const data = await res.json().catch(() => ({}));
+      const res = await fetch(
+        `/api/topics?category=${encodeURIComponent(active)}&topic=${encodeURIComponent(slug(label))}`
+      );
 
-      // El controlador puede devolver { ok, items: [] } o un array directo (según tu versión)
-      const items = Array.isArray(data?.items) ? data.items
-                   : Array.isArray(data)       ? data
-                   : [];
-
-      // Convierte cada documento en un 'resource' para tu visor
-      const resources = items.map((doc) => pickBestResourceFromDoc(doc));
-
-      // Si no vino nada, deja un fallback amable
-      const topic = {
-        title: `${category.name} — ${label}`,
-        description: items[0]?.description || "",
-        resources: resources.length ? resources : [
-          { type: "html", html: `<h2>${label}</h2><p>No se encontraron recursos con "${termino}".</p>`, label: "Mensaje" }
-        ],
-        // si quieres, también puedes exponer el primer HTML “bonito”:
-        html: items.find(d => d?.lessons?.[0]?.content)?.lessons?.[0]?.content || ""
-      };
-
-      setTopicData(topic);
+      if (!res.ok) throw new Error("No OK");
+      const data = await res.json();
+      setTopicData(normalizeTopic(data, label));
     } catch (e) {
-      console.error(e);
-      // Fallback local si el back no responde (útil para pruebas)
-      setTopicData({
-        title: `${category.name} — ${label}`,
-        description: "Recurso de ejemplo (fallback).",
+      // Fallback local mientras no hay backend
+      const demoFromDB = {
+        title: "Cultura Digital I – Uso crítico de tecnologías. I2 C2",
+        description: "Buenas prácticas de seguridad y servicios digitales.",
         resources: [
-          { type: "pdf", url: "https://www.imss.gob.mx/sites/all/statics/pdf/guarderias/ninos-tecnologia.pdf", label: "PDF ejemplo" }
+          { type: "pdf", url: "https://www.imss.gob.mx/sites/all/statics/pdf/guarderias/ninos-tecnologia.pdf" }
         ],
-        html: `<h1>${label}</h1><p>Contenido de ejemplo.</p>`
-      });
+        lessons: [
+          {
+            title: "Seguridad y servicios digitales",
+            content: "<h1>Seguridad básica</h1><p>Usa contraseñas robustas y comprende servicios digitales como el correo electrónico.</p>"
+          }
+        ]
+      };
+      setTopicData(normalizeTopic(demoFromDB, label));
+      console.error("[openTopic] fallback demo:", e);
     } finally {
       setLoadingTopic(false);
     }
@@ -240,13 +219,25 @@ export default function Escritorio() {
         </div>
       </section>
 
-      {/* === NUEVO: MODAL DEL VISOR === */}
+      {/* MODAL DE CONTENIDO */}
       <ViewerModal
         open={viewerOpen}
         onClose={() => setViewerOpen(false)}
         topic={topicData}
         loading={loadingTopic}
       />
+
+      {/* FAB GEMINI */}
+      <button
+        className="gemini-fab"
+        aria-label="Abrir asistente"
+        onClick={() => setChatOpen(true)}
+      >
+        <GeminiIcon />
+      </button>
+
+      {/* MODAL CHAT GEMINI */}
+      <GeminiChatModal open={chatOpen} onClose={() => setChatOpen(false)} />
     </div>
   );
 }
@@ -254,9 +245,7 @@ export default function Escritorio() {
 /* =======================
    Modal + ResourceViewer
    ======================= */
-
 function ViewerModal({ open, onClose, topic, loading }) {
-  // Cierra con ESC
   useEffect(() => {
     if (!open) return;
     const h = (e) => e.key === "Escape" && onClose();
@@ -267,7 +256,6 @@ function ViewerModal({ open, onClose, topic, loading }) {
   if (!open) return null;
 
   const resources = topic?.resources ?? [];
-  //const hasHtml = !!topic?.html;
 
   return (
     <div className="modal-overlay" onClick={onClose}>
@@ -280,10 +268,7 @@ function ViewerModal({ open, onClose, topic, loading }) {
         {loading && <div className="modal-loading">Cargando…</div>}
 
         {!loading && (
-          <>
-            {/* Tabs simples si hay varios recursos o HTML */}
-            <TabbedViewer resources={resources} html={topic?.html} description={topic?.description} />
-          </>
+          <TabbedViewer resources={resources} html={topic?.html} description={topic?.description} />
         )}
       </div>
     </div>
@@ -342,17 +327,10 @@ function labelForResource(r, i) {
 function ResourceViewer({ res }) {
   if (!res) return null;
 
-  // PDF
   if (res.type === "pdf" && res.url) {
-    // Si el servidor del PDF bloquea iframes (X-Frame-Options), al menos mostramos el botón "Abrir"
     return (
       <div className="frame-wrap">
-        <iframe
-          className="frame"
-          src={`${res.url}#toolbar=1&navpanes=0`}
-          title="PDF"
-          loading="lazy"
-        />
+        <iframe className="frame" src={`${res.url}#toolbar=1&navpanes=0`} title="PDF" loading="lazy" />
         <a className="open-link" href={res.url} target="_blank" rel="noopener noreferrer">
           Abrir en pestaña
         </a>
@@ -360,7 +338,6 @@ function ResourceViewer({ res }) {
     );
   }
 
-  // VIDEO (YouTube/Vimeo o MP4 directo)
   if (res.type === "video" && res.url) {
     const yt = toYouTubeEmbed(res.url);
     if (yt) {
@@ -380,7 +357,6 @@ function ResourceViewer({ res }) {
         </div>
       );
     }
-    // MP4 u otros
     return (
       <div className="video-wrap">
         <video className="video" controls src={res.url} />
@@ -391,7 +367,6 @@ function ResourceViewer({ res }) {
     );
   }
 
-  // IMAGEN
   if (res.type === "image" && res.url) {
     return (
       <div className="img-wrap">
@@ -403,7 +378,6 @@ function ResourceViewer({ res }) {
     );
   }
 
-  // CUALQUIER OTRA COSA: intentar con iframe
   if (res.url) {
     return (
       <div className="frame-wrap">
@@ -419,13 +393,8 @@ function ResourceViewer({ res }) {
 }
 
 function HtmlViewer({ html }) {
-  // 🔒 Recomendado: sanitizar con DOMPurify (npm i dompurify) antes de inyectar
-  // import DOMPurify from "dompurify";
-  // const safe = DOMPurify.sanitize(html);
-  const safe = html; // usa DOMPurify en producción
-  return (
-    <div className="html-wrap" dangerouslySetInnerHTML={{ __html: safe }} />
-  );
+  const safe = html; // Sanitiza con DOMPurify en prod
+  return <div className="html-wrap" dangerouslySetInnerHTML={{ __html: safe }} />;
 }
 
 function toYouTubeEmbed(url) {
@@ -434,7 +403,6 @@ function toYouTubeEmbed(url) {
     if (u.hostname.includes("youtube.com")) {
       const v = u.searchParams.get("v");
       if (v) return `https://www.youtube.com/embed/${v}`;
-      // links tipo /embed/ ya sirven, /shorts/:id -> convertir
       const parts = u.pathname.split("/");
       if (parts[1] === "shorts" && parts[2]) return `https://www.youtube.com/embed/${parts[2]}`;
       return url;
@@ -449,44 +417,129 @@ function toYouTubeEmbed(url) {
   }
 }
 
-function toYouTubeId(url) {
-  try {
-    const u = new URL(url);
-    if (u.hostname.includes("youtu.be")) return u.pathname.slice(1);
-    if (u.hostname.includes("youtube.com")) return u.searchParams.get("v");
-    return null;
-  } catch { return null; }
+/* =======================
+   Modal de chat (Gemini)
+   ======================= */
+function GeminiChatModal({ open, onClose }) {
+  const [prompt, setPrompt] = useState("");
+  const [sending, setSending] = useState(false);
+  const [messages, setMessages] = useState([]); // {role:'user'|'assistant', text:string}
+  const inputRef = useRef(null);
+  const bodyRef = useRef(null);
+
+  useEffect(() => {
+    if (!open) return;
+    const h = (e) => e.key === "Escape" && onClose();
+    window.addEventListener("keydown", h);
+    setTimeout(() => inputRef.current?.focus(), 0);
+    return () => window.removeEventListener("keydown", h);
+  }, [open, onClose]);
+
+  useEffect(() => {
+    bodyRef.current?.scrollTo({ top: bodyRef.current.scrollHeight, behavior: "smooth" });
+  }, [messages, sending]);
+
+  if (!open) return null;
+
+  const handleSend = async () => {
+    const p = prompt.trim();
+    if (!p || sending) return;
+    setMessages((m) => [...m, { role: "user", text: p }]);
+    setPrompt("");
+    setSending(true);
+    try {
+      // Backend de Gemini (ajusta tu endpoint):
+      const res = await fetch("/api/gemini/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt: p, history: messages })
+      });
+      if (!res.ok) throw new Error("Error en /api/gemini/chat");
+      const data = await res.json();
+      const text = data.text || data.reply || "(sin respuesta)";
+      setMessages((m) => [...m, { role: "assistant", text }]);
+    } catch (e) {
+      // Fallback demo porque no hay back conectado
+      setMessages((m) => [
+        ...m,
+        { role: "assistant", text: "Demo (sin backend): aquí verías la respuesta de Gemini 👋" }
+      ]);
+      console.error(e);
+    } finally {
+      setSending(false);
+    }
+  };
+
+  const onKeyDown = (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      handleSend();
+    }
+  };
+
+  return (
+    <div className="modal-overlay" onClick={onClose}>
+      <div className="modal-card chat" onClick={(e) => e.stopPropagation()}>
+        <div className="modal-header">
+          <div className="chat-title">
+            <GeminiIcon />
+            <span>Asistente Gemini</span>
+          </div>
+          <button className="modal-close" onClick={onClose}>✕</button>
+        </div>
+
+        <div className="chat-body" ref={bodyRef}>
+          {messages.length === 0 && (
+            <div className="chat-placeholder">
+              Escribe una pregunta para comenzar.
+            </div>
+          )}
+          {messages.map((m, i) => (
+            <div key={i} className={`chat-msg ${m.role === "user" ? "user" : "assistant"}`}>
+              <div className="bubble">{m.text}</div>
+            </div>
+          ))}
+          {sending && (
+            <div className="chat-msg assistant">
+              <div className="bubble bubble-loading">
+                <span className="dot" /><span className="dot" /><span className="dot" />
+              </div>
+            </div>
+          )}
+        </div>
+
+        <form className="chat-input" onSubmit={(e) => { e.preventDefault(); handleSend(); }}>
+          <textarea
+            ref={inputRef}
+            value={prompt}
+            onChange={(e) => setPrompt(e.target.value)}
+            onKeyDown={onKeyDown}
+            placeholder="Escribe tu prompt… (Enter para enviar, Shift+Enter para salto de línea)"
+            rows={2}
+          />
+          <button type="submit" disabled={sending || !prompt.trim()}>
+            Enviar
+          </button>
+        </form>
+      </div>
+    </div>
+  );
 }
 
-// Devuelve un resource {type: 'pdf'|'video'|'html'|'link', url?, videoId?, label?}
-function pickBestResourceFromDoc(doc) {
-  // 1) resources estandarizados
-  if (Array.isArray(doc?.resources) && doc.resources.length) {
-    const r = doc.resources[0];
-    if (r.type === "video" && r.url) {
-      const id = toYouTubeId(r.url);
-      return id ? { type:"video", videoId:id, label: doc.title || "Video", url: r.url }
-                : { type:"link", url: r.url, label: doc.title || "Video" };
-    }
-    if (r.type === "pdf" && r.url)  return { type:"pdf", url: r.url, label: doc.title || "PDF" };
-    if (r.type === "image" && r.url) return { type:"image", url: r.url, label: doc.title || "Imagen" };
-    if (r.type === "paragraph") {
-      // prueba con lessons[0].content como HTML abajo
-    }
-  }
-
-  // 2) campos directos tipo/url/videoId
-  if (doc?.type === "pdf" && doc?.url)     return { type:"pdf", url: doc.url, label: doc.title || "PDF" };
-  if (doc?.type === "link" && doc?.url)    return { type:"link", url: doc.url, label: doc.title || "Recurso" };
-  if (doc?.type === "video" && doc?.videoId)
-    return { type:"video", videoId: doc.videoId, label: doc.title || "Video" };
-
-  // 3) usa HTML de la primera lección si existe
-  const html = doc?.lessons?.[0]?.content;
-  if (html) return { type:"html", html, label: doc?.lessons?.[0]?.title || doc.title || "Lectura" };
-
-  // 4) fallback mínimo
-  return { type:"html", html:`<h2>${doc.title||"Recurso"}</h2><p>${doc.description||"Sin descripción"}</p>`, label: doc.title || "Recurso" };
+/* Icono estilo Gemini (placeholder). Cambia por un <img src="/gemini.svg" /> si prefieres el oficial */
+function GeminiIcon({ size = 28 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 64 64" aria-hidden="true">
+      <defs>
+        <radialGradient id="g1" cx="50%" cy="50%" r="60%">
+          <stop offset="0%" stopColor="#7CF6F6"/>
+          <stop offset="50%" stopColor="#6C6CFF"/>
+          <stop offset="100%" stopColor="#A855F7"/>
+        </radialGradient>
+      </defs>
+      <circle cx="32" cy="32" r="28" fill="url(#g1)" />
+      <path d="M20 32c8-2 16-2 24 0M24 22c6 0 10 4 16 4M24 42c6 0 10-4 16-4"
+            stroke="rgba(0,0,0,.35)" strokeWidth="2" fill="none" strokeLinecap="round"/>
+    </svg>
+  );
 }
-
-
