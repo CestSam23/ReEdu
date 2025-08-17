@@ -1,0 +1,26 @@
+{
+  "_id": "idc29",
+  "title": "Funciones trigonométricas",
+  "description": "Definición, gráficas y ángulos notables",
+  "resources": [
+    { "type": "paragraph" }
+  ],
+  "riasec": {
+    "R": 0, "I": 3, "A": 0, "S": 0, "E": 0, "C": 1
+  },
+  "lessons": [
+    {
+      "_id": "idl1",
+      "title": "Funciones trigonométricas",
+      "content": "<h1>Funciones trigonométricas</h1><p>Las funciones trigonométricas relacionan ángulos con razones en un triángulo rectángulo: seno, coseno y tangente. Sus gráficas son periódicas y se repiten en intervalos. Los ángulos notables (30°, 45°, 60°) tienen valores exactos útiles en problemas.</p>",
+      "quiz": {
+        "_id": "ObjectId",
+        "questions": [
+          { "id": "p1", "type": "single", "prompt": "¿Cuál es la función que relaciona cateto opuesto / hipotenusa?", "options": ["Coseno","Seno"], "answer": "Seno" },
+          { "id": "p2", "type": "single", "prompt": "La gráfica del seno tiene forma:", "options": ["Onda","Recta"], "answer": "Onda" },
+          { "id": "p3", "type": "single", "prompt": "¿Un ángulo notable es?", "options": ["30°","33°"], "answer": "30°" }
+        ]
+      }
+    }
+  ]
+}

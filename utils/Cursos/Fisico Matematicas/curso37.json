@@ -1,0 +1,26 @@
+{
+  "_id": "idc37",
+  "title": "Movimiento y leyes de Newton",
+  "description": "MRU, MRUA, parabólico y leyes de Newton",
+  "resources": [
+    { "type": "paragraph" }
+  ],
+  "riasec": {
+    "R": 2, "I": 3, "A": 0, "S": 0, "E": 0, "C": 0
+  },
+  "lessons": [
+    {
+      "_id": "idl1",
+      "title": "Movimiento y leyes de Newton",
+      "content": "<h1>Movimiento y leyes de Newton</h1><p>El MRU mantiene velocidad constante; el MRUA cambia con aceleración uniforme. La segunda ley establece F = m·a. El movimiento parabólico combina MRU horizontal y MRUA vertical.</p>",
+      "quiz": {
+        "_id": "ObjectId",
+        "questions": [
+          { "id": "p1", "type": "single", "prompt": "La fórmula F = m·a corresponde a:", "options": ["2ª Ley de Newton","1ª Ley"], "answer": "2ª Ley de Newton" },
+          { "id": "p2", "type": "single", "prompt": "El MRU tiene:", "options": ["Velocidad constante","Aceleración constante"], "answer": "Velocidad constante" },
+          { "id": "p3", "type": "single", "prompt": "El movimiento parabólico combina:", "options": ["Horizontal MRU + Vertical MRUA","Dos MRUA"], "answer": "Horizontal MRU + Vertical MRUA" }
+        ]
+      }
+    }
+  ]
+}

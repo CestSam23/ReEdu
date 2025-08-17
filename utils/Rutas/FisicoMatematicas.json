@@ -1,0 +1,17 @@
+{
+  "_id": "idfisicomatematicas",
+  "title": "Fisico Matemáticas",
+  "description": "Ruta básica para Fisico Matemáticas",
+  "courses": [
+    { "courseId": "idc29", "order": 1 },
+    { "courseId": "idc30", "order": 2 },
+    { "courseId": "idc31", "order": 3 },
+    { "courseId": "idc32", "order": 4 },
+    { "courseId": "idc33", "order": 5 },
+    { "courseId": "idc34", "order": 6 },
+    { "courseId": "idc35", "order": 7 },
+    { "courseId": "idc36", "order": 8 },
+    { "courseId": "idc37", "order": 9 },
+    { "courseId": "idc38", "order": 10 }
+  ]
+}
