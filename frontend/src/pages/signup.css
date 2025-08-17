@@ -118,6 +118,7 @@
   cursor: pointer;
   border-color: rgba(0, 0, 0, 0.5);
   transition: filter .15s, transform .05s, background .15s, color .15s, border .15s;
+  text-align: center;
 }
 
 .muted {
