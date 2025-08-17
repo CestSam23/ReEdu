@@ -1,5 +1,5 @@
 {
-    "_id": "ObjectId",
+    "_id": "idc13",
     "title": "Ciencias Naturales II – Energía y calor",
     "description": "Conceptos básicos de energía y calor.",
     "resources": [
@@ -10,11 +10,11 @@
   },
     "lessons": [
       {
-        "_id": "ObjectId",
+        "_id": "idl1",
         "title": "Energía y calor",
         "content": "<h1>Energía y calor</h1><p>La energía no se crea ni se destruye, solo se transforma. El calor es una forma de energía.</p>",
         "quiz": {
-          "_id": "ObjectId",
+          "_id": "idq1",
           "questions": [
             {
               "id": "p1",

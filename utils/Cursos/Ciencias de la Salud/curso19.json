@@ -1,5 +1,5 @@
 {
-  "_id": "ObjectId",
+  "_id": "idc19",
   "title": "Evolución de la vida y química del origen",
   "description": "Teoría quimiosintética y biomoléculas",
   "resources": [
@@ -10,15 +10,15 @@
   },
   "lessons": [
     {
-      "_id": "ObjectId",
+      "_id": "idl1",
       "title": "Evolución de la vida y química del origen",
       "content": "<h1>Evolución de la vida y química del origen</h1><p>La teoría quimiosintética plantea que la vida surgió en mares primitivos, a partir de compuestos simples que formaron biomoléculas más complejas. Las biomoléculas son esenciales:<br><b>Inorgánicas:</b> agua y sales minerales.<br><b>Orgánicas:</b> carbohidratos (energía), lípidos (almacenamiento), proteínas (estructura y enzimas), ácidos nucleicos (información genética).</p>",
       "quiz": {
-        "_id": "ObjectId",
+        "_id": "idq1",
         "questions": [
-          { "id": "q1", "type": "single", "prompt": "¿Qué moléculas forman la base de la vida?", "options": ["Orgánicas e inorgánicas","Artificiales"], "answer": "Orgánicas e inorgánicas" },
-          { "id": "q2", "type": "single", "prompt": "¿Los carbohidratos sirven principalmente para...?", "options": ["Energía","Regular la temperatura"], "answer": "Energía" },
-          { "id": "q3", "type": "single", "prompt": "Según la teoría quimiosintética, la vida surgió en:", "options": ["El espacio","Los mares primitivos"], "answer": "Los mares primitivos" }
+          { "id": "p1", "type": "single", "prompt": "¿Qué moléculas forman la base de la vida?", "options": ["Orgánicas e inorgánicas","Artificiales"], "answer": "Orgánicas e inorgánicas" },
+          { "id": "p2", "type": "single", "prompt": "¿Los carbohidratos sirven principalmente para...?", "options": ["Energía","Regular la temperatura"], "answer": "Energía" },
+          { "id": "p3", "type": "single", "prompt": "Según la teoría quimiosintética, la vida surgió en:", "options": ["El espacio","Los mares primitivos"], "answer": "Los mares primitivos" }
         ]
       }
     }

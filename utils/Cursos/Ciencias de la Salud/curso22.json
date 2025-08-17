@@ -1,5 +1,5 @@
 {
-  "_id": "ObjectId",
+  "_id": "idc22",
   "title": "Genética y herencia",
   "description": "Conceptos de genética y leyes de Mendel",
   "resources": [
@@ -10,15 +10,15 @@
   },
   "lessons": [
     {
-      "_id": "ObjectId",
+      "_id": "idl1",
       "title": "Genética y herencia",
       "content": "<h1>Genética y herencia</h1><p>La genética estudia la herencia. <b>Mendel</b> describió cómo los rasgos se transmiten. <br><b>Herencia mendeliana:</b> dominancia, recesividad. <br><b>No mendeliana:</b> codominancia, herencia ligada al sexo.</p>",
       "quiz": {
-        "_id": "ObjectId",
+        "_id": "idq1",
         "questions": [
-          { "id": "q1", "type": "single", "prompt": "¿Quién es el padre de la genética?", "options": ["Newton","Mendel"], "answer": "Mendel" },
-          { "id": "q2", "type": "single", "prompt": "El color de ojos heredado por dominancia es ejemplo de:", "options": ["Herencia mendeliana","No mendeliana"], "answer": "Herencia mendeliana" },
-          { "id": "q3", "type": "single", "prompt": "¿Cuál de estas NO es herencia mendeliana?", "options": ["Codominancia","Recesiva"], "answer": "Codominancia" }
+          { "id": "p1", "type": "single", "prompt": "¿Quién es el padre de la genética?", "options": ["Newton","Mendel"], "answer": "Mendel" },
+          { "id": "p2", "type": "single", "prompt": "El color de ojos heredado por dominancia es ejemplo de:", "options": ["Herencia mendeliana","No mendeliana"], "answer": "Herencia mendeliana" },
+          { "id": "p3", "type": "single", "prompt": "¿Cuál de estas NO es herencia mendeliana?", "options": ["Codominancia","Recesiva"], "answer": "Codominancia" }
         ]
       }
     }

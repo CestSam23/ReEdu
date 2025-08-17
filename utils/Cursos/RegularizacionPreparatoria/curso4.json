@@ -1,5 +1,5 @@
 {
-    "_id": "ObjectId",
+    "_id": "idc4",
     "title": "Cultura Digital I – Uso crítico de tecnologías. I2 C2",
     "description": "Buenas prácticas de seguridad y servicios digitales.",
     "resources": [
@@ -10,11 +10,11 @@
   },
     "lessons": [
       {
-        "_id": "ObjectId",
+        "_id": "idl1",
         "title": "Seguridad y servicios digitales",
         "content": "<h1>Seguridad básica</h1><p>Usa contraseñas robustas y comprende servicios digitales como el correo electrónico.</p>",
         "quiz": {
-          "_id": "ObjectId",
+          "_id": "idq1",
           "questions": [
             {
               "id": "p1",

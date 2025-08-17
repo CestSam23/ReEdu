@@ -1,5 +1,5 @@
 {
-    "_id": "ObjectId",
+    "_id": "idc17",
     "title": "Ciencias Naturales III – Sistema terrestre y ecosistemas",
     "description": "Subsistemas de la Tierra y ecosistemas.",
     "resources": [
@@ -10,11 +10,11 @@
   },
     "lessons": [
       {
-        "_id": "ObjectId",
+        "_id": "idl1",
         "title": "Sistema terrestre",
         "content": "<h1>Subsistemas de la Tierra</h1><p>La Tierra es un sistema formado por atmósfera (aire), hidrosfera (agua), biosfera (vida) y geosfera (tierra). Todos interactúan. Un ecosistema es la interacción de seres vivos y su entorno.</p>",
         "quiz": {
-          "_id": "ObjectId",
+          "_id": "idq1",
           "questions": [
             {
               "id": "p1",

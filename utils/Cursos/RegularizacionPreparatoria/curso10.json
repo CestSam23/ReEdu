@@ -1,5 +1,5 @@
 {
-    "_id": "ObjectId",
+    "_id": "idc10",
     "title": "Inglés II – Rutinas y actividades cotidianas. S2 C1",
     "description": "Uso del presente simple para rutinas diarias.",
     "resources": [
@@ -10,11 +10,11 @@
   },
     "lessons": [
       {
-        "_id": "ObjectId",
+        "_id": "idl1",
         "title": "Presente simple",
         "content": "<h1>Rutinas</h1><p>Para hablar de rutinas usamos el presente simple: <br/>“I wake up at 7 o’clock.” (Me despierto a las 7).<br/>“She studies in the afternoon.” (Ella estudia por la tarde).</p>",
         "quiz": {
-          "_id": "ObjectId",
+          "_id": "idq1",
           "questions": [
             {
               "id": "p1",

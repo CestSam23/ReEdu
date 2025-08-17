@@ -1,5 +1,5 @@
 {
-    "_id": "ObjectId",
+    "_id": "idc16",
     "title": "Pensamiento Matemático III – Ecuaciones y sistemas",
     "description": "Resolución de ecuaciones básicas.",
     "resources": [
@@ -10,11 +10,11 @@
   },
     "lessons": [
       {
-        "_id": "ObjectId",
+        "_id": "idl1",
         "title": "Ecuaciones básicas",
         "content": "<h1>Ecuaciones</h1><p>En una ecuación, una incógnita se resuelve para que la igualdad sea verdadera. Ejemplo: x+2=5 → x=3.</p>",
         "quiz": {
-          "_id": "ObjectId",
+          "_id": "idq1",
           "questions": [
             {
               "id": "p1",

@@ -1,5 +1,5 @@
 {
-    "_id": "ObjectId",
+    "_id": "idc2",
     "title": "Inglés I – Presentaciones y expresiones básicas. S2 E1",
     "description": "Saludos, presentaciones y expresiones básicas.",
     "resources": [
@@ -10,11 +10,11 @@
   },
     "lessons": [
       {
-        "_id": "ObjectId",
+        "_id": "idl1",
         "title": "Presentaciones: Hello & Nice to meet you",
         "content": "<h1>Presentaciones</h1><p>Aprende a saludar, presentarte y responder cortesmente: <em>Hello</em>, <em>My name is...</em>, <em>Nice to meet you</em>.</p>",
         "quiz": {
-          "_id": "ObjectId",
+          "_id": "idq1",
           "questions": [
             {
               "id": "p1",
