@@ -51,7 +51,10 @@ export default function SignupStepper() {
         </div>
 
         <button className="btn back" onClick={()=> window.location.href="/"} > Inicio</button>
-
+        <p className="muted">
+          ¿Ya tienes cuenta?{" "}
+          <a className="login-link" href="/login">Inicia sesión</a>
+        </p>
         <small className="muted">Paso {step + 1} de {steps.length}</small>
       </section>
     </main>
