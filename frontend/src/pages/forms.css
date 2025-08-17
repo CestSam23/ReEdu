@@ -1,0 +1,96 @@
+:root {
+  --bg: radial-gradient(1200px 600px at 20% 10%, rgba(108, 92, 231, 0.25), transparent 60%),
+    radial-gradient(900px 500px at 80% 80%, rgba(108, 92, 231, 0.18), transparent 60%),
+    linear-gradient(135deg, #0b0716 0%, #120a2a 40%, #1a1038 70%, #2b1655 100%);
+  --text: #fff;
+  --muted: #bdb4ff;
+
+  /* Paleta base */
+  --primary: #6c5ce7;
+  --ring: rgba(108, 92, 231, 0.25);
+
+  /* Aliases para lo que usas en inline styles del JSX */
+  --input-bd: var(--primary);
+  --focus-ring: var(--ring);
+
+  /* Botones */
+  --btn-bg: #111827;
+  --btn-text: #fff;
+  --btn-radius: 12px;
+  --btn-pad: 14px 18px;
+  --btn-font: 16px;
+
+  --gap: 14px;
+}
+
+/* Página */
+.page.simple {
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  background: var(--bg);
+  color: var(--text);
+  padding: 24px;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, sans-serif;
+}
+
+/* Contenedor central */
+.stack {
+  width: 100%;
+  max-width: 640px;
+  display: grid;
+  gap: var(--gap);
+  text-align: center;
+}
+
+/* Pregunta grande */
+.question {
+  font-size: clamp(28px, 6vw, 38px);
+  font-weight: 800;
+  line-height: 1.2;
+  margin: 0 0 12px;
+}
+
+/* Botón base (también se usa para cada opción) */
+.btn {
+  padding: var(--btn-pad);
+  border-radius: var(--btn-radius);
+  border: 1px solid transparent;
+  background: var(--btn-bg);
+  color: var(--btn-text);
+  font-weight: 700;
+  font-size: var(--btn-font);
+  text-align: left;            /* para que las opciones queden alineadas a la izquierda */
+  cursor: pointer;
+  transition: filter .15s, transform .05s, background .15s, color .15s, border .15s, box-shadow .15s;
+}
+.btn:hover { filter: brightness(0.97); }
+.btn:active { transform: translateY(1px); }
+.btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+/* Botón fantasma (Atrás) */
+.btn.ghost {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.25);
+}
+
+/* Controles inferiores (Atrás / Siguiente) */
+.actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gap);
+  margin-top: 16px;
+}
+
+/* Texto auxiliar (progreso) */
+.muted {
+  opacity: 0.85;
+  font-size: 14px;
+}
+
+/* (Opcional) Si prefieres no usar style inline para el grid de opciones, 
+   puedes usar esta clase y aplicarla en JSX como className="options" */
+.options {
+  display: grid;
+  gap: var(--gap);
+}
