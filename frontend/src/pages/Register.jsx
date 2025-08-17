@@ -114,10 +114,7 @@ export default function SignupStepper() {
           </div>
         </form>
 
-        <button className="btn back" onClick={() => (window.location.href = "/")} disabled={loading}>
-          Inicio
-        </button>
-
+        <button className="btn back" onClick={() => (window.location.href = "/")} disabled={loading}> Inicio</button>
         <p className="muted">
           ¿Ya tienes cuenta?{" "}
           <a className="login-link" href="/login">Inicia sesión</a>
