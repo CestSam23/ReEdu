@@ -5,6 +5,7 @@ import Home from './pages/Home.jsx'
 import Login from './pages/Login.jsx'
 import Register from './pages/Register.jsx'
 import Escritorio from './pages/Escritorio.jsx'
+import Forms from './pages/forms.jsx'
 
 
 function App() {
@@ -14,7 +15,8 @@ function App() {
       <Route path="/login" element={<Login />} />
       <Route path="/registro" element={<Register />} />
       <Route path="/escritorio" element={<Escritorio />} />
-      
+      <Route path="/forms" element={<Forms />} />
+      {/* Aquí puedes agregar más rutas según vayas creando más páginas */}
     </Routes>
   )
 }
