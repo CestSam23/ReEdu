@@ -1,0 +1,37 @@
+{
+    "_id": "ObjectId",
+    "title": "Ciencias Naturales I – Materia y fenómenos naturales. I3 R1",
+    "description": "Materia: propiedades y ejemplos.",
+    "resources": [
+      { "type": "video", "url": "https://www.youtube.com/watch?v=dFEtjw0Zlf4" }
+    ],
+      "riasec": {                   
+    "R": 1, "I": 3, "A": 0, "S": 0, "E": 0, "C": 0
+  },
+    "lessons": [
+      {
+        "_id": "ObjectId",
+        "title": "Propiedades de la materia",
+        "content": "<h1>La materia</h1><p>La materia tiene masa y ocupa espacio. El aire también es materia por sus partículas y propiedades medibles.</p>",
+        "quiz": {
+          "_id": "ObjectId",
+          "questions": [
+            {
+              "id": "p1",
+              "type": "single",
+              "prompt": "¿El aire es materia?",
+              "options": ["Sí", "No"],
+              "answer": "Sí"
+            },
+            {
+              "id": "p2",
+              "type": "single",
+              "prompt": "¿Qué propiedad tiene toda materia?",
+              "options": ["No ocupa espacio", "Tiene masa"],
+              "answer": "Tiene masa"
+            }
+          ]
+        }
+      }
+    ]
+  }

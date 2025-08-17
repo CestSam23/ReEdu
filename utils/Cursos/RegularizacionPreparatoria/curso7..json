@@ -1,0 +1,37 @@
+{
+    "_id": "ObjectId",
+    "title": "Ciencias Sociales I – Necesidades y organización social. S3 E1",
+    "description": "Organización de la sociedad y comunidades.",
+    "resources": [
+      { "type": "pdf", "url": "https://www.paginaspersonales.unam.mx/app/webroot/files/4747/asesoria_20_de_febrero_pdf.pdf" }
+    ],
+      "riasec": {                   
+    "R": 0, "I": 1, "A": 0, "S": 3, "E": 0, "C": 0
+  },
+    "lessons": [
+      {
+        "_id": "ObjectId",
+        "title": "Necesidades y comunidad",
+        "content": "<h1>Organización social</h1><p>La sociedad se organiza para cubrir necesidades básicas y generar bienestar común.</p>",
+        "quiz": {
+          "_id": "ObjectId",
+          "questions": [
+            {
+              "id": "p1",
+              "type": "single",
+              "prompt": "¿Qué cubre la sociedad al organizarse?",
+              "options": ["Necesidades", "Juegos"],
+              "answer": "Necesidades"
+            },
+            {
+              "id": "p2",
+              "type": "single",
+              "prompt": "Una comunidad es:",
+              "options": ["Un grupo de personas", "Un objeto"],
+              "answer": "Un grupo de personas"
+            }
+          ]
+        }
+      }
+    ]
+  }

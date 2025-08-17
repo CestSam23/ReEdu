@@ -1,0 +1,25 @@
+{
+  "_id": "ObjectId",
+  "title": "Regularización Preparatoria",
+  "description": "Ruta básica para regularización preparatoria",
+  "courses": [
+    { "courseId": "ObjectId", "order": 1 },
+    { "courseId": "ObjectId", "order": 2 },
+    { "courseId": "ObjectId", "order": 3 },
+    { "courseId": "ObjectId", "order": 4 },
+    { "courseId": "ObjectId", "order": 5 },
+    { "courseId": "ObjectId", "order": 6 },
+    { "courseId": "ObjectId", "order": 7 },
+    { "courseId": "ObjectId", "order": 8 },
+    { "courseId": "ObjectId", "order": 9 },
+    { "courseId": "ObjectId", "order": 10 },
+    { "courseId": "ObjectId", "order": 11 },
+    { "courseId": "ObjectId", "order": 12 },
+    { "courseId": "ObjectId", "order": 13 },
+    { "courseId": "ObjectId", "order": 14 },
+    { "courseId": "ObjectId", "order": 15 },
+    { "courseId": "ObjectId", "order": 16 },
+    { "courseId": "ObjectId", "order": 17 },
+    { "courseId": "ObjectId", "order": 18 }
+  ]
+}

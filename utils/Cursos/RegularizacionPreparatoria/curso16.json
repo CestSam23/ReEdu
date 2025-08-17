@@ -1,0 +1,37 @@
+{
+    "_id": "ObjectId",
+    "title": "Pensamiento Matemático III – Ecuaciones y sistemas",
+    "description": "Resolución de ecuaciones básicas.",
+    "resources": [
+      { "type": "pdf", "url": "https://webdeldocente.com/wp-content/uploads/Expresi%C3%B3n-Algebraica-para-Sexto-Grado-de-Primaria.pdf" }
+    ],
+      "riasec": {                   
+    "R": 0, "I": 3, "A": 0, "S": 0, "E": 0, "C": 0
+  },
+    "lessons": [
+      {
+        "_id": "ObjectId",
+        "title": "Ecuaciones básicas",
+        "content": "<h1>Ecuaciones</h1><p>En una ecuación, una incógnita se resuelve para que la igualdad sea verdadera. Ejemplo: x+2=5 → x=3.</p>",
+        "quiz": {
+          "_id": "ObjectId",
+          "questions": [
+            {
+              "id": "p1",
+              "type": "single",
+              "prompt": "En x+2=5, ¿x = ?",
+              "options": ["2", "3"],
+              "answer": "3"
+            },
+            {
+              "id": "p2",
+              "type": "single",
+              "prompt": "Una ecuación es...",
+              "options": ["Una igualdad", "Una suma suelta"],
+              "answer": "Una igualdad"
+            }
+          ]
+        }
+      }
+    ]
+  }

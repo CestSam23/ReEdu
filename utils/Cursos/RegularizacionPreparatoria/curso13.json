@@ -1,0 +1,37 @@
+{
+    "_id": "ObjectId",
+    "title": "Ciencias Naturales II – Energía y calor",
+    "description": "Conceptos básicos de energía y calor.",
+    "resources": [
+      { "type": "video", "url": "https://www.youtube.com/watch?v=ZLAoKBVglU8&t=111s" }
+    ],
+      "riasec": {                   
+    "R": 1, "I": 3, "A": 0, "S": 0, "E": 0, "C": 0
+  },
+    "lessons": [
+      {
+        "_id": "ObjectId",
+        "title": "Energía y calor",
+        "content": "<h1>Energía y calor</h1><p>La energía no se crea ni se destruye, solo se transforma. El calor es una forma de energía.</p>",
+        "quiz": {
+          "_id": "ObjectId",
+          "questions": [
+            {
+              "id": "p1",
+              "type": "single",
+              "prompt": "La energía puede...",
+              "options": ["Crearse", "Transformarse"],
+              "answer": "Transformarse"
+            },
+            {
+              "id": "p2",
+              "type": "single",
+              "prompt": "¿El calor es una forma de energía?",
+              "options": ["Sí", "No"],
+              "answer": "Sí"
+            }
+          ]
+        }
+      }
+    ]
+  }

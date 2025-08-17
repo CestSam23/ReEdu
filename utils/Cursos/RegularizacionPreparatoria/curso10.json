@@ -1,0 +1,37 @@
+{
+    "_id": "ObjectId",
+    "title": "Inglés II – Rutinas y actividades cotidianas. S2 C1",
+    "description": "Uso del presente simple para rutinas diarias.",
+    "resources": [
+      { "type": "paragraph" }
+    ],
+      "riasec": {                   
+    "R": 0, "I": 0, "A": 0, "S": 2, "E": 0, "C": 1
+  },
+    "lessons": [
+      {
+        "_id": "ObjectId",
+        "title": "Presente simple",
+        "content": "<h1>Rutinas</h1><p>Para hablar de rutinas usamos el presente simple: <br/>“I wake up at 7 o’clock.” (Me despierto a las 7).<br/>“She studies in the afternoon.” (Ella estudia por la tarde).</p>",
+        "quiz": {
+          "_id": "ObjectId",
+          "questions": [
+            {
+              "id": "p1",
+              "type": "single",
+              "prompt": "“I eat breakfast at 8” significa:",
+              "options": ["Desayuno a las 8", "Ceno a las 8"],
+              "answer": "Desayuno a las 8"
+            },
+            {
+              "id": "p2",
+              "type": "single",
+              "prompt": "¿Qué significa “wake up”?",
+              "options": ["Dormir", "Despertar"],
+              "answer": "Despertar"
+            }
+          ]
+        }
+      }
+    ]
+  }

@@ -1,0 +1,37 @@
+{
+    "_id": "ObjectId",
+    "title": "Lengua y Comunicación III – Análisis literario y reseña crítica",
+    "description": "Movimientos literarios y reseña crítica.",
+    "resources": [
+      { "type": "paragraph" }
+    ],
+      "riasec": {                   
+    "R": 0, "I": 0, "A": 3, "S": 0, "E": 0, "C": 0
+  },
+    "lessons": [
+      {
+        "_id": "ObjectId",
+        "title": "Literatura y reseña crítica",
+        "content": "<h1>Literatura y reseña crítica</h1><p>Un movimiento literario reúne autores con ideas comunes (ej: Romanticismo: sentimientos y libertad). La reseña crítica analiza una obra, no solo la describe.</p>",
+        "quiz": {
+          "_id": "ObjectId",
+          "questions": [
+            {
+              "id": "p1",
+              "type": "single",
+              "prompt": "¿El Romanticismo es...?",
+              "options": ["Movimiento literario", "Un número"],
+              "answer": "Movimiento literario"
+            },
+            {
+              "id": "p2",
+              "type": "single",
+              "prompt": "La reseña crítica sirve para...",
+              "options": ["Analizar una obra", "Resolver un problema"],
+              "answer": "Analizar una obra"
+            }
+          ]
+        }
+      }
+    ]
+  }

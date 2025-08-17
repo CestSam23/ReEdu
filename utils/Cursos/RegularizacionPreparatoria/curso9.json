@@ -1,0 +1,37 @@
+{
+    "_id": "ObjectId",
+    "title": "Lengua y Comunicación II – Ensayo y escritura clara. A2 E1",
+    "description": "Redacción de ensayos y reseñas.",
+    "resources": [
+      { "type": "video", "url": "https://www.youtube.com/watch?v=MUESepeGvkc" }
+    ],
+      "riasec": {                   
+    "R": 0, "I": 0, "A": 2, "S": 0, "E": 1, "C": 0
+  },
+    "lessons": [
+      {
+        "_id": "ObjectId",
+        "title": "Ensayo y reseña",
+        "content": "<h1>Escritura clara</h1><p>El ensayo es un texto que expone ideas y argumentos. La reseña permite opinar y valorar obras o textos.</p>",
+        "quiz": {
+          "_id": "ObjectId",
+          "questions": [
+            {
+              "id": "p1",
+              "type": "single",
+              "prompt": "¿Un ensayo es...?",
+              "options": ["Texto con ideas y argumentos", "Lista de compras"],
+              "answer": "Texto con ideas y argumentos"
+            },
+            {
+              "id": "p2",
+              "type": "single",
+              "prompt": "La reseña se usa para...",
+              "options": ["Opinar sobre una obra", "Sumar números"],
+              "answer": "Opinar sobre una obra"
+            }
+          ]
+        }
+      }
+    ]
+  }

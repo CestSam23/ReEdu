@@ -1,0 +1,37 @@
+{
+    "_id": "ObjectId",
+    "title": "Cultura Digital I – Uso crítico de tecnologías. I2 C2",
+    "description": "Buenas prácticas de seguridad y servicios digitales.",
+    "resources": [
+      { "type": "pdf", "url": "https://www.imss.gob.mx/sites/all/statics/pdf/guarderias/ninos-tecnologia.pdf" }
+    ],
+      "riasec": {                   
+    "R": 0, "I": 2, "A": 0, "S": 0, "E": 0, "C": 2
+  },
+    "lessons": [
+      {
+        "_id": "ObjectId",
+        "title": "Seguridad y servicios digitales",
+        "content": "<h1>Seguridad básica</h1><p>Usa contraseñas robustas y comprende servicios digitales como el correo electrónico.</p>",
+        "quiz": {
+          "_id": "ObjectId",
+          "questions": [
+            {
+              "id": "p1",
+              "type": "single",
+              "prompt": "¿Cuál es más segura?",
+              "options": ["“12345”", "“M!cR0_2025”"],
+              "answer": "“M!cR0_2025”"
+            },
+            {
+              "id": "p2",
+              "type": "single",
+              "prompt": "¿El correo electrónico es un ejemplo de servicio digital?",
+              "options": ["Sí", "No"],
+              "answer": "Sí"
+            }
+          ]
+        }
+      }
+    ]
+  }

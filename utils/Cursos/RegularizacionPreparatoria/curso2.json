@@ -1,0 +1,36 @@
+{
+    "_id": "ObjectId",
+    "title": "Inglés I – Presentaciones y expresiones básicas. S2 E1",
+    "description": "Saludos, presentaciones y expresiones básicas.",
+    "resources": [
+      { "type": "video", "url": "https://www.youtube.com/watch?v=PeXZktbTgLo" }
+    ],
+      "riasec": {                   
+    "R": 0, "I": 0, "A": 0, "S": 2, "E": 1, "C": 0
+  },
+    "lessons": [
+      {
+        "_id": "ObjectId",
+        "title": "Presentaciones: Hello & Nice to meet you",
+        "content": "<h1>Presentaciones</h1><p>Aprende a saludar, presentarte y responder cortesmente: <em>Hello</em>, <em>My name is...</em>, <em>Nice to meet you</em>.</p>",
+        "quiz": {
+          "_id": "ObjectId",
+          "questions": [
+            {
+              "id": "p1",
+              "type": "single",
+              "prompt": "“Nice to meet you” significa:",
+              "options": ["Encantado de conocerte", "Adiós"],
+              "answer": "Encantado de conocerte"
+            },
+            {
+              "id": "p2",
+              "type": "text",
+              "prompt": "Traduce: “Hello, my name is Ana”.",
+              "answer": "Hola, me llamo Ana"
+            }
+          ]
+        }
+      }
+    ]
+  }

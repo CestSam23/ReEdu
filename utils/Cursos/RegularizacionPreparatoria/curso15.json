@@ -1,0 +1,36 @@
+{
+    "_id": "ObjectId",
+    "title": "Inglés III – Hábitos, responsabilidades y experiencias",
+    "description": "Uso de expresiones para rutinas y experiencias en pasado.",
+    "resources": [
+      { "type": "video", "url": "https://www.youtube.com/watch?v=6j3r452hbUA" }
+    ],
+      "riasec": {                   
+    "R": 0, "I": 0, "A": 0, "S": 2, "E": 0, "C": 1
+  },
+    "lessons": [
+      {
+        "_id": "ObjectId",
+        "title": "Rutinas y experiencias",
+        "content": "<h1>Presente y pasado</h1><p>“Yesterday” significa “ayer”. Ejemplo: “I studied yesterday” = “Estudié ayer”.</p>",
+        "quiz": {
+          "_id": "ObjectId",
+          "questions": [
+            {
+              "id": "p1",
+              "type": "single",
+              "prompt": "“Yesterday” significa:",
+              "options": ["Ayer", "Mañana"],
+              "answer": "Ayer"
+            },
+            {
+              "id": "p2",
+              "type": "text",
+              "prompt": "Traduce: “I studied yesterday”.",
+              "answer": "Estudié ayer"
+            }
+          ]
+        }
+      }
+    ]
+  }
