@@ -1,8 +1,8 @@
-import { useMemo, useState, useEffect } from "react";
+import { useMemo, useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import "./Escritorio.css";
 
-// === TU DATA DE PRUEBA (igual que la que tenías) ===
+// === DATA DE PRUEBA ===
 const CATEGORIES = [
   {
     id: "cultura-digital-1",
@@ -86,78 +86,91 @@ const slug = (s) =>
 
 export default function Escritorio() {
   const [active, setActive] = useState(CATEGORIES[0].id);
-  const category = useMemo(() => CATEGORIES.find((c) => c.id === active) ?? CATEGORIES[0], [active]);
+  const category = useMemo(
+    () => CATEGORIES.find((c) => c.id === active) ?? CATEGORIES[0],
+    [active]
+  );
 
-  // Estados para el visor/modal
+  // Viewer existente
   const [viewerOpen, setViewerOpen] = useState(false);
   const [topicData, setTopicData] = useState(null);
   const [loadingTopic, setLoadingTopic] = useState(false);
-  
-  // Nuevos estados para búsqueda
-  const [searchResults, setSearchResults] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [searchLoading, setSearchLoading] = useState(false);
 
-  // Layout del árbol (igual que antes)
-  const layout = useMemo(() => { /* ... */ }, [category]);
+  // Chat Gemini
+  const [chatOpen, setChatOpen] = useState(false);
 
-  // Función unificada para manejar clicks en nodos
-  const handleNodeClick = async (label) => {
-    setSearchTerm(label); // Guarda el término buscado
-    await buscarContenido(label); // Ejecuta la búsqueda
+  // Layout del árbol
+  const layout = useMemo(() => {
+    const colGap = 220;
+    const rowGap = 100;
+    const startX = 260;
+    const baseY  = 200;
+    const nodes = [];
+    const edges = [];
+
+    category.nodes.forEach((label, i) => {
+      let x = startX + i * colGap;
+      if (i === 3) x -= 40;
+      const off = i === 0 ? 0 : (i % 2 === 0 ? (i / 2) * -1 : Math.ceil(i / 2));
+      const y = baseY + off * rowGap;
+
+      nodes.push({ id: `n-${i}`, label, x, y, isRoot: i === 0 });
+    });
+
+    if (nodes[0] && nodes[1]) edges.push({ from: nodes[0], to: nodes[1] });
+    if (nodes[1] && nodes[2]) edges.push({ from: nodes[1], to: nodes[2] });
+    if (nodes[1] && nodes[3]) edges.push({ from: nodes[1], to: nodes[3] });
+    for (let i = 4; i < nodes.length; i++) edges.push({ from: nodes[i - 1], to: nodes[i] });
+
+    const width = Math.max(1100, startX + (category.nodes.length + 1) * colGap);
+    const height = 680;
+
+    return { nodes, edges, width, height };
+  }, [category]);
+
+  // Normalizador BD
+  const normalizeTopic = (d, fallbackTitle) => {
+    const firstLesson = d?.lessons?.[0] ?? null;
+    return {
+      title: d?.title || firstLesson?.title || fallbackTitle || "Tema",
+      description: d?.description || "",
+      resources: Array.isArray(d?.resources) ? d.resources : [],
+      html: firstLesson?.content || d?.content || ""
+    };
   };
 
-  // Búsqueda modificada para cargar el modal
-  const buscarContenido = async (terminoBusqueda) => {
-    setSearchLoading(true);
-    setViewerOpen(true); // Abre el modal
-    
+  // Click en nodo => abrir modal de contenido
+  const openTopic = async (label) => {
+    setViewerOpen(true);
+    setLoadingTopic(true);
+
     try {
-      const response = await fetch('/api/cursos/busqueda-global', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ termino: terminoBusqueda })
-      });
+      const res = await fetch(
+        `/api/topics?category=${encodeURIComponent(active)}&topic=${encodeURIComponent(slug(label))}`
+      );
 
-      const data = await response.json();
-
-      if (!response.ok) throw new Error(data.error || 'Error en la búsqueda');
-
-      // Procesar primer resultado para el modal
-      if (data.length > 0) {
-        const primerResultado = data[0];
-        setTopicData({
-          title: primerResultado.title || terminoBusqueda,
-          description: primerResultado.matches[0]?.fragmento || '',
-          resources: [],
-          html: `<h2>${primerResultado.title}</h2>
-                ${primerResultado.matches.map(m => 
-                  `<div class="match">
-                    <h3>${m.campo}</h3>
-                    <p>${m.fragmento}</p>
-                  </div>`
-                ).join('')}`
-        });
-      } else {
-        setTopicData({
-          title: terminoBusqueda,
-          description: `No se encontraron resultados para "${terminoBusqueda}"`,
-          resources: [],
-          html: `<p>Intenta con otro término de búsqueda</p>`
-        });
-      }
-
-      setSearchResults(data);
-    } catch (error) {
-      console.error('Error:', error);
-      setTopicData({
-        title: "Error",
-        description: error.message,
-        resources: [],
-        html: `<div class="error">${error.message}</div>`
-      });
+      if (!res.ok) throw new Error("No OK");
+      const data = await res.json();
+      setTopicData(normalizeTopic(data, label));
+    } catch (e) {
+      // Fallback local mientras no hay backend
+      const demoFromDB = {
+        title: "Cultura Digital I – Uso crítico de tecnologías. I2 C2",
+        description: "Buenas prácticas de seguridad y servicios digitales.",
+        resources: [
+          { type: "pdf", url: "https://www.imss.gob.mx/sites/all/statics/pdf/guarderias/ninos-tecnologia.pdf" }
+        ],
+        lessons: [
+          {
+            title: "Seguridad y servicios digitales",
+            content: "<h1>Seguridad básica</h1><p>Usa contraseñas robustas y comprende servicios digitales como el correo electrónico.</p>"
+          }
+        ]
+      };
+      setTopicData(normalizeTopic(demoFromDB, label));
+      console.error("[openTopic] fallback demo:", e);
     } finally {
-      setSearchLoading(false);
+      setLoadingTopic(false);
     }
   };
 
@@ -195,7 +208,7 @@ export default function Escritorio() {
                 key={n.id}
                 className={`t2-node ${n.isRoot ? "root" : ""}`}
                 style={{ left: n.x, top: n.y }}
-                onClick={() => handleNodeClick(n.label)} // Usa la función unificada
+                onClick={() => openTopic(n.label)}
                 title={n.label}
               >
                 <span className="t2-title">{n.label}</span>
@@ -206,68 +219,33 @@ export default function Escritorio() {
         </div>
       </section>
 
-      {/* MODAL + RESULTADOS */}
+      {/* MODAL DE CONTENIDO */}
       <ViewerModal
         open={viewerOpen}
         onClose={() => setViewerOpen(false)}
         topic={topicData}
-        loading={searchLoading}
+        loading={loadingTopic}
       />
 
-      {/* PANEL DE RESULTADOS (opcional) */}
-      {searchResults.length > 0 && (
-        <div className="results-panel">
-          <ResultadosBusqueda 
-            termino={searchTerm} 
-            resultados={searchResults} 
-            onSelect={setTopicData}
-          />
-        </div>
-      )}
+      {/* FAB GEMINI */}
+      <button
+        className="gemini-fab"
+        aria-label="Abrir asistente"
+        onClick={() => setChatOpen(true)}
+      >
+        <GeminiIcon />
+      </button>
+
+      {/* MODAL CHAT GEMINI */}
+      <GeminiChatModal open={chatOpen} onClose={() => setChatOpen(false)} />
     </div>
   );
-}
-
-function ResultadosBusqueda({ termino, resultados, onSelect }) {
-  return (
-    <div className="resultados-busqueda">
-      <h3>Resultados para "{termino}"</h3>
-      <div className="resultados-container">
-        {resultados.map((curso) => (
-          <div key={curso._id} className="card-curso">
-            <h4>{curso.title}</h4>
-            <button 
-              onClick={() => onSelect({
-                title: curso.title,
-                html: curso.matches.map(m => `
-                  <div class="match">
-                    <h3>${m.campo}</h3>
-                    <p>${m.fragmento}</p>
-                  </div>
-                `).join('')
-              })}
-            >
-              Ver detalles
-            </button>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-// Helper para resaltar texto
-function resaltarTermino(texto, termino) {
-  const regex = new RegExp(`(${termino})`, 'gi');
-  return texto.replace(regex, '<mark>$1</mark>');
 }
 
 /* =======================
    Modal + ResourceViewer
    ======================= */
-
 function ViewerModal({ open, onClose, topic, loading }) {
-  // Cierra con ESC
   useEffect(() => {
     if (!open) return;
     const h = (e) => e.key === "Escape" && onClose();
@@ -278,7 +256,6 @@ function ViewerModal({ open, onClose, topic, loading }) {
   if (!open) return null;
 
   const resources = topic?.resources ?? [];
-  const hasHtml = !!topic?.html;
 
   return (
     <div className="modal-overlay" onClick={onClose}>
@@ -291,10 +268,7 @@ function ViewerModal({ open, onClose, topic, loading }) {
         {loading && <div className="modal-loading">Cargando…</div>}
 
         {!loading && (
-          <>
-            {/* Tabs simples si hay varios recursos o HTML */}
-            <TabbedViewer resources={resources} html={topic?.html} description={topic?.description} />
-          </>
+          <TabbedViewer resources={resources} html={topic?.html} description={topic?.description} />
         )}
       </div>
     </div>
@@ -353,16 +327,10 @@ function labelForResource(r, i) {
 function ResourceViewer({ res }) {
   if (!res) return null;
 
-  // PDF
   if (res.type === "pdf" && res.url) {
     return (
       <div className="frame-wrap">
-        <iframe
-          className="frame"
-          src={`${res.url}#toolbar=1&navpanes=0`}
-          title="PDF"
-          loading="lazy"
-        />
+        <iframe className="frame" src={`${res.url}#toolbar=1&navpanes=0`} title="PDF" loading="lazy" />
         <a className="open-link" href={res.url} target="_blank" rel="noopener noreferrer">
           Abrir en pestaña
         </a>
@@ -370,7 +338,6 @@ function ResourceViewer({ res }) {
     );
   }
 
-  // VIDEO (YouTube/Vimeo o MP4 directo)
   if (res.type === "video" && res.url) {
     const yt = toYouTubeEmbed(res.url);
     if (yt) {
@@ -390,7 +357,6 @@ function ResourceViewer({ res }) {
         </div>
       );
     }
-    // MP4 u otros
     return (
       <div className="video-wrap">
         <video className="video" controls src={res.url} />
@@ -401,7 +367,6 @@ function ResourceViewer({ res }) {
     );
   }
 
-  // IMAGEN
   if (res.type === "image" && res.url) {
     return (
       <div className="img-wrap">
@@ -413,7 +378,6 @@ function ResourceViewer({ res }) {
     );
   }
 
-  // CUALQUIER OTRA COSA: intentar con iframe
   if (res.url) {
     return (
       <div className="frame-wrap">
@@ -429,10 +393,8 @@ function ResourceViewer({ res }) {
 }
 
 function HtmlViewer({ html }) {
-  const safe = html;
-  return (
-    <div className="html-wrap" dangerouslySetInnerHTML={{ __html: safe }} />
-  );
+  const safe = html; // Sanitiza con DOMPurify en prod
+  return <div className="html-wrap" dangerouslySetInnerHTML={{ __html: safe }} />;
 }
 
 function toYouTubeEmbed(url) {
@@ -441,7 +403,6 @@ function toYouTubeEmbed(url) {
     if (u.hostname.includes("youtube.com")) {
       const v = u.searchParams.get("v");
       if (v) return `https://www.youtube.com/embed/${v}`;
-      // links tipo /embed/ ya sirven, /shorts/:id -> convertir
       const parts = u.pathname.split("/");
       if (parts[1] === "shorts" && parts[2]) return `https://www.youtube.com/embed/${parts[2]}`;
       return url;
@@ -454,4 +415,159 @@ function toYouTubeEmbed(url) {
   } catch {
     return null;
   }
+}
+
+/* =======================
+   Modal de chat (Gemini)
+   ======================= */
+function GeminiChatModal({ open, onClose }) {
+  const [prompt, setPrompt] = useState("");
+  const [sending, setSending] = useState(false);
+  const [messages, setMessages] = useState([]); // {role:'user'|'assistant', text:string}
+  const inputRef = useRef(null);
+  const bodyRef = useRef(null);
+
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+
+  useEffect(() => {
+    if (!open) return;
+
+    const h = (e) => e.key === "Escape" && onClose();
+    window.addEventListener("keydown", h);
+    setTimeout(() => inputRef.current?.focus(), 0);
+
+    // Carga el intro personalizado  cada que se abre
+    (async () => {
+      try {
+        const token = localStorage.getItem('token');
+        if (!token) return; // quizá redirigir a login
+
+        const res = await fetch(`${API_URL}/api/gemini/intro`, {
+          method: 'GET',
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        const data = await res.json().catch(() => ({}));
+        if (res.ok && data?.ok) {
+          setMessages([{ role: 'assistant', text: data.intro }]);
+        } else {
+          // mensaje corto
+          setMessages([{ role: 'assistant', text: "Hola, soy tu asistente. Puedo recomendarte qué estudiar según tus resultados cuando tenga acceso a tu información." }]);
+        }
+      } catch (e) {
+        console.error(e);
+        setMessages([{ role: 'assistant', text: "No pude cargar tu resumen personalizado, pero puedo ayudarte con tus dudas." }]);
+      }
+    })();
+
+    return () => window.removeEventListener("keydown", h);
+  }, [open, onClose]);
+
+  useEffect(() => {
+    bodyRef.current?.scrollTo({ top: bodyRef.current.scrollHeight, behavior: "smooth" });
+  }, [messages, sending]);
+
+  if (!open) return null;
+
+  const handleSend = async () => {
+    const p = prompt.trim();
+    if (!p || sending) return;
+    setMessages((m) => [...m, { role: "user", text: p }]);
+    setPrompt("");
+    setSending(true);
+    try {
+      const token = localStorage.getItem('token');
+      const res = await fetch(`${API_URL}/api/gemini/chat`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({ message: p, history: messages })
+      });
+      const data = await res.json().catch(() => ({}));
+      const text = data?.reply || "(sin respuesta)";
+      setMessages((m) => [...m, { role: "assistant", text }]);
+    } catch (e) {
+      setMessages((m) => [
+        ...m,
+        { role: "assistant", text: "No pude contactar al asistente. Intenta de nuevo." }
+      ]);
+      console.error(e);
+    } finally {
+      setSending(false);
+    }
+  };
+
+  const onKeyDown = (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      handleSend();
+    }
+  };
+
+  return (
+    <div className="modal-overlay" onClick={onClose}>
+      <div className="modal-card chat" onClick={(e) => e.stopPropagation()}>
+        <div className="modal-header">
+          <div className="chat-title">
+            <GeminiIcon />
+            <span>Asistente Gemini</span>
+          </div>
+          <button className="modal-close" onClick={onClose}>✕</button>
+        </div>
+
+        <div className="chat-body" ref={bodyRef}>
+          {messages.length === 0 && (
+            <div className="chat-placeholder">
+              Escribe una pregunta para comenzar.
+            </div>
+          )}
+          {messages.map((m, i) => (
+            <div key={i} className={`chat-msg ${m.role === "user" ? "user" : "assistant"}`}>
+              <div className="bubble">{m.text}</div>
+            </div>
+          ))}
+          {sending && (
+            <div className="chat-msg assistant">
+              <div className="bubble bubble-loading">
+                <span className="dot" /><span className="dot" /><span className="dot" />
+              </div>
+            </div>
+          )}
+        </div>
+
+        <form className="chat-input" onSubmit={(e) => { e.preventDefault(); handleSend(); }}>
+          <textarea
+            ref={inputRef}
+            value={prompt}
+            onChange={(e) => setPrompt(e.target.value)}
+            onKeyDown={onKeyDown}
+            placeholder="Escribe tu prompt… (Enter para enviar, Shift+Enter para salto de línea)"
+            rows={2}
+          />
+          <button type="submit" disabled={sending || !prompt.trim()}>
+            Enviar
+          </button>
+        </form>
+      </div>
+    </div>
+  );
+}
+
+
+function GeminiIcon({ size = 28 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 64 64" aria-hidden="true">
+      <defs>
+        <radialGradient id="g1" cx="50%" cy="50%" r="60%">
+          <stop offset="0%" stopColor="#7CF6F6"/>
+          <stop offset="50%" stopColor="#6C6CFF"/>
+          <stop offset="100%" stopColor="#A855F7"/>
+        </radialGradient>
+      </defs>
+      <circle cx="32" cy="32" r="28" fill="url(#g1)" />
+      <path d="M20 32c8-2 16-2 24 0M24 22c6 0 10 4 16 4M24 42c6 0 10-4 16-4"
+            stroke="rgba(0,0,0,.35)" strokeWidth="2" fill="none" strokeLinecap="round"/>
+    </svg>
+  );
 }

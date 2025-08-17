@@ -6,6 +6,8 @@ import mongoose from "mongoose";
 import { connectDB } from "./config/db.config.js";
 import authRoutes from "./routes/auth.routes.js";
 import formRoutes from "./routes/form.routes.js";
+import cursoRoutes from "./routes/curso.routes.js";
+import geminiRoutes from "./routes/gemini.routes.js";
 
 const app = express();
 
@@ -23,6 +25,8 @@ app.get("/health", (_req, res) => {
 // Rutas
 app.use("/api/auth", authRoutes);
 app.use("/api/form", formRoutes);
+app.use("/api/cursos", cursoRoutes);
+app.use("/api/gemini", geminiRoutes);
 
 const PORT = process.env.PORT || 5000;
 

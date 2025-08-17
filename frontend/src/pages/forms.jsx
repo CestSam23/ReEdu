@@ -27,7 +27,7 @@ const QUESTIONS = [
   "Me interesa planear y ordenar información o procesos.",
 ];
 
-// 0:R, 1:I, 2:A, 3:S, 4:E, 5:C (referencia local por si la usas en UI)
+// 0:R, 1:I, 2:A, 3:S, 4:E, 5:C 
 const QUESTION_DIM = [0,0,3,3,2,2, 4,4,1,1,5,5];
 const RIASEC_LABELS = ["R","I","A","S","E","C"];
 const SCORE_BY_OPTION_INDEX = [0,1,2,3,4];
@@ -38,7 +38,7 @@ const STORAGE_RIASEC  = "formRIASEC";
 export default function Form() {
   const navigate = useNavigate();
 
-  // si no hay sesión, manda a login
+  
   useEffect(() => {
     const tk = localStorage.getItem("token");
     if (!tk) navigate("/login", { replace: true });
@@ -50,7 +50,7 @@ export default function Form() {
   const [sending, setSending] = useState(false);
   const [error, setError] = useState("");
 
-  // util: mapea texto de opción -> índice 0..4
+
   const optionIndexOf = useMemo(() => {
     const map = new Map(OPTIONS.map((t, i) => [t, i]));
     return (text) => map.get(text) ?? 0;
@@ -75,13 +75,13 @@ export default function Form() {
 
   const handleSelect = (value) => {
     setError("");
-    // 1) guardar respuesta local
+    
     const newAnswers = [...answers];
     newAnswers[step] = value;
     setAnswers(newAnswers);
     localStorage.setItem(STORAGE_ANSWERS, JSON.stringify(newAnswers));
 
-    // 2) sumar al eje RIASEC local (para UI)
+    
     const dim = QUESTION_DIM[step];
     const optIndex = optionIndexOf(value);
     const score = SCORE_BY_OPTION_INDEX[optIndex] ?? 0;
@@ -90,7 +90,7 @@ export default function Form() {
     setRiasec(newRiasec);
     localStorage.setItem(STORAGE_RIASEC, JSON.stringify(newRiasec));
 
-    // 3) avanzar
+    
     if (step === QUESTIONS.length - 1) {
       onFinish(newAnswers);
     } else {
@@ -105,7 +105,6 @@ export default function Form() {
       const token = localStorage.getItem("token");
       if (!token) throw new Error("No hay sesión. Inicia sesión e inténtalo de nuevo.");
 
-      // construimos el payload que espera /api/form/riasec
       const payload = {
         answers: finalAnswers.map((optText, qIndex) => ({
           qIndex,
@@ -128,14 +127,6 @@ export default function Form() {
         throw new Error(data?.msg || `Error ${res.status}`);
       }
 
-      // opcional: podrías guardar los scores de vuelta si quieres
-      // localStorage.setItem("riasecScoresServer", JSON.stringify(data.scores));
-
-      // limpieza opcional del progreso local (si ya persististe)
-      // localStorage.removeItem(STORAGE_ANSWERS);
-      // localStorage.removeItem(STORAGE_RIASEC);
-
-      // redirige a donde quieras (antes usabas /home)
       navigate("/escritorio", { replace: true });
     } catch (e) {
       console.error("[RIASEC] Error guardando:", e);

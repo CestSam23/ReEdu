@@ -146,13 +146,13 @@ export default function Home() {
     })
   }
 
-  // Carrusel y otras funciones
+  // Carrusel 
   const populares = [
-    { titulo: 'React Básico', descripcion: 'Aprende los fundamentos de React.' },
-    { titulo: 'Node.js Express', descripcion: 'Desarrolla APIs con Node y Express.' },
-    { titulo: 'Node.js Express', descripcion: 'Desarrolla APIs con Node y Express.' },
-    { titulo: 'Node.js Express', descripcion: 'Desarrolla APIs con Node y Express.' },
-    {titulo: 'Node.js Express', descripcion: 'Desarrolla APIs con Node y Express.' },
+    { titulo: 'Celula y evolución celular', descripcion: 'Procariotas, eucariotas, transporte y división celular.' },
+    { titulo: 'Genética y Herencia', descripcion: 'Conceptos de genética y leyes de Mendel.' },
+    { titulo: 'Identidades trigonométricas', descripcion: 'Básicas, suma y resta, múltiplos de ángulo.' },
+    { titulo: 'Energía y electricidad', descripcion: 'Energía mecánica y conceptos básicos de electricidad.' },
+    {titulo: 'Estructura atómica y tabla periódica', descripcion: 'Partículas subatómicas, configuración electrónica y propiedades.' },
   ]
   const recientes = [
     { titulo: 'Python para Data Science', descripcion: 'Introducción a análisis de datos.' },
@@ -188,7 +188,7 @@ export default function Home() {
       </header>
 
       <main className="home-content">
-        {/* Botones principales */}
+        
         <div className="home-buttons">
           <Link className="btn" to="/login">Login</Link>
           <Link className="btn" to="/registro">Registro</Link>
@@ -197,13 +197,13 @@ export default function Home() {
           </button>
         </div>
 
-        {/* Slogan grande */}
-        <h2 className="home-slogan">[Slogan aún por definir]</h2>
+        
+        <h2 className="home-slogan">Reducation for all</h2>
       </main>
 
       {/* Sección de cursos con pestañas y carrusel */}
       <section className="home-courses">
-        {/* Títulos con pestañas */}
+        
         <div className="courses-tabs">
           <button
             className={`tab ${activeTab === 'populares' ? 'active' : ''}`}
@@ -226,7 +226,7 @@ export default function Home() {
             {activeTab === 'populares' &&
               populares.map((curso, index) => (
                 <div key={index} className="course-card">
-                  <div className="course-image">Imagen</div>
+                  <div className="course-image">Registrate para más información</div>
                   <h3>{curso.titulo}</h3>
                   <p>{curso.descripcion}</p>
                 </div>
@@ -236,7 +236,7 @@ export default function Home() {
             {activeTab === 'recientes' &&
               recientes.map((curso, index) => (
                 <div key={index} className="course-card">
-                  <div className="course-image">Imagen</div>
+                  <div className="course-image">Registrate para más información</div>
                   <h3>{curso.titulo}</h3>
                   <p>{curso.descripcion}</p>
                 </div>
