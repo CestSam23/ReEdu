@@ -60,7 +60,7 @@ export default function SignupStepper() {
 
       // Éxito
       alert(`✅ Cuenta creada: ${data.user.name} – ${data.user.email}`);
-      window.location.href = "/login";
+      window.location.href = "/forms";
     } catch (e) {
       setError(e.message);
     } finally {
