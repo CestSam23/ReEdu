@@ -1,0 +1,25 @@
+{
+  "_id": "idcienciasdelasalud",
+  "title": "Ciencias de la salud",
+  "description": "Ruta básica para regularización preparatoria",
+  "courses": [
+    { "courseId": "idc1", "order": 1 },
+    { "courseId": "idc2", "order": 2 },
+    { "courseId": "idc3", "order": 3 },
+    { "courseId": "idc4", "order": 4 },
+    { "courseId": "idc5", "order": 5 },
+    { "courseId": "idc6", "order": 6 },
+    { "courseId": "idc7", "order": 7 },
+    { "courseId": "idc8", "order": 8 },
+    { "courseId": "idc9", "order": 9 },
+    { "courseId": "idc10", "order": 10 },
+    { "courseId": "idc11", "order": 11 },
+    { "courseId": "idc12", "order": 12 },
+    { "courseId": "idc13", "order": 13 },
+    { "courseId": "idc14", "order": 14 },
+    { "courseId": "idc15", "order": 15 },
+    { "courseId": "idc16", "order": 16 },
+    { "courseId": "idc17", "order": 17 },
+    { "courseId": "idc18", "order": 18 }
+  ]
+}
