@@ -1,5 +1,5 @@
 {
-    "_id": "ObjectId",
+    "_id": "idc18",
     "title": "Pensamiento Filosófico y Humanidades II – Ética, ontología y género",
     "description": "Estudio de la ética y valores como la igualdad de género.",
     "resources": [
@@ -10,11 +10,11 @@
   },
     "lessons": [
       {
-        "_id": "ObjectId",
+        "_id": "idl1",
         "title": "Ética y género",
         "content": "<h1>Ética</h1><p>La ética estudia lo bueno y lo malo. La igualdad de género se considera un valor ético fundamental.</p>",
         "quiz": {
-          "_id": "ObjectId",
+          "_id": "idq1",
           "questions": [
             {
               "id": "p1",

@@ -1,5 +1,5 @@
 {
-    "_id": "ObjectId",
+    "_id": "idc11",
     "title": "Pensamiento Matemático II – Aritmética y álgebra básica. I3",
     "description": "Introducción al álgebra: monomios e incógnitas.",
     "resources": [
@@ -10,11 +10,11 @@
   },
     "lessons": [
       {
-        "_id": "ObjectId",
+        "_id": "idl1",
         "title": "Monomios y álgebra básica",
         "content": "<h1>Álgebra básica</h1><p>Los monomios son expresiones con un solo término (ej. 2x). En el álgebra, la x representa una incógnita.</p>",
         "quiz": {
-          "_id": "ObjectId",
+          "_id": "idq1",
           "questions": [
             {
               "id": "p1",

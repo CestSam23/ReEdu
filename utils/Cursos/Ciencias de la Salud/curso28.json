@@ -1,24 +1,24 @@
 {
-  "_id": "ObjectId",
-  "title": "Física aplicada al cuerpo",
-  "description": "Cinemática, dinámica y electricidad en la vida cotidiana",
+  "_id": "idc28",
+  "title": "Psicología y conducta humana",
+  "description": "Bases biológicas, personalidad, aprendizaje y emociones",
   "resources": [
-    { "type": "video", "url": "https://www.youtube.com/watch?v=_X-BTbwj3xU" }
+    { "type": "paragraph" }
   ],
   "riasec": {
-    "R": 2, "I": 3, "A": 0, "S": 0, "E": 0, "C": 0
+    "R": 0, "I": 2, "A": 1, "S": 2, "E": 0, "C": 0
   },
   "lessons": [
     {
-      "_id": "ObjectId",
-      "title": "Física aplicada al cuerpo",
-      "content": "<h1>Física aplicada al cuerpo</h1><p>La física describe el movimiento y la energía:<br><b>Cinemática:</b> notación científica y conversiones.<br><b>Dinámica:</b> leyes de Newton, fuerza y trabajo.<br><b>Electricidad:</b> cargas y la ley de Coulomb.</p>",
+      "_id": "idl1",
+      "title": "Psicología y conducta humana",
+      "content": "<h1>Psicología y conducta humana</h1><p>La psicología estudia la mente y la conducta:<br><b>Bases biológicas:</b> cerebro y sistema nervioso.<br><b>Personalidad:</b> conjunto de rasgos y teorías explicativas.<br><b>Aprendizaje e inteligencia:</b> condicionamiento, teorías del aprendizaje.<br><b>Sensación, percepción y emociones:</b> cómo interpretamos y sentimos el mundo.</p>",
       "quiz": {
-        "_id": "ObjectId",
+        "_id": "idq1",
         "questions": [
-          { "id": "q1", "type": "single", "prompt": "La fórmula de la fuerza es:", "options": ["F = m·a","F = m/v"], "answer": "F = m·a" },
-          { "id": "q2", "type": "single", "prompt": "¿Quién formuló las leyes del movimiento?", "options": ["Einstein","Newton"], "answer": "Newton" },
-          { "id": "q3", "type": "single", "prompt": "La carga de un electrón es:", "options": ["Negativa","Positiva"], "answer": "Negativa" }
+          { "id": "p1", "type": "single", "prompt": "¿Qué órgano es clave en la conducta?", "options": ["Corazón","Cerebro"], "answer": "Cerebro" },
+          { "id": "p2", "type": "single", "prompt": "El condicionamiento es una forma de:", "options": ["Aprendizaje","Respiración"], "answer": "Aprendizaje" },
+          { "id": "p3", "type": "single", "prompt": "Las emociones son:", "options": ["Procesos mentales que generan reacciones","Movimientos físicos"], "answer": "Procesos mentales que generan reacciones" }
         ]
       }
     }

@@ -1,5 +1,5 @@
 {
-  "_id": "ObjectId",
+  "_id": "idc1",
   "title": "Lengua y Comunicacion I",
   "description": "Oración y Párrafo",
   "resources": [
@@ -10,11 +10,11 @@
   },
   "lessons": [
     {
-      "_id": "ObjectId",
+      "_id": "idl1",
       "title": "Oración y Párrafo",
       "content": "<h1>Oración y Párrafo</h1><p>    Una oración simple tiene un solo verbo (María corre). Una oración compuesta tiene dos o más verbos unidos (María corre y Pedro lee). Los párrafos se construyen con oraciones que desarrollan una idea. </p>",
       "quiz": {
-        "_id": "ObjectId",
+        "_id": "idq1",
         "questions": [
           { "id": "p1", "type": "single", "prompt": "¿Cuál es oración compuesta?", "options": ["María lee","María lee y escribe"],"answer": "María lee y escribe" },
           { "id": "p2", "type": "single", "prompt": "¿El párrafo se construye con...?", "options": ["Oraciones","Palabras sueltas"], "answer": "Oraciones" }

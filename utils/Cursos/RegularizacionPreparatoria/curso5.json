@@ -1,5 +1,5 @@
 {
-    "_id": "ObjectId",
+    "_id": "idc5",
     "title": "Ciencias Naturales I – Materia y fenómenos naturales. I3 R1",
     "description": "Materia: propiedades y ejemplos.",
     "resources": [
@@ -10,11 +10,11 @@
   },
     "lessons": [
       {
-        "_id": "ObjectId",
+        "_id": "idl1",
         "title": "Propiedades de la materia",
         "content": "<h1>La materia</h1><p>La materia tiene masa y ocupa espacio. El aire también es materia por sus partículas y propiedades medibles.</p>",
         "quiz": {
-          "_id": "ObjectId",
+          "_id": "idq1",
           "questions": [
             {
               "id": "p1",

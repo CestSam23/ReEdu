@@ -1,5 +1,5 @@
 {
-    "_id": "ObjectId",
+    "_id": "idc7",
     "title": "Ciencias Sociales I – Necesidades y organización social. S3 E1",
     "description": "Organización de la sociedad y comunidades.",
     "resources": [
@@ -10,11 +10,11 @@
   },
     "lessons": [
       {
-        "_id": "ObjectId",
+        "_id": "idl1",
         "title": "Necesidades y comunidad",
         "content": "<h1>Organización social</h1><p>La sociedad se organiza para cubrir necesidades básicas y generar bienestar común.</p>",
         "quiz": {
-          "_id": "ObjectId",
+          "_id": "idq1",
           "questions": [
             {
               "id": "p1",

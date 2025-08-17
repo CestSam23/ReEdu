@@ -1,5 +1,5 @@
 {
-  "_id": "ObjectId",
+  "_id": "idc24",
   "title": "Medio ambiente y biodiversidad",
   "description": "Cambio climático y niveles de biodiversidad",
   "resources": [
@@ -10,15 +10,15 @@
   },
   "lessons": [
     {
-      "_id": "ObjectId",
+      "_id": "idl1",
       "title": "Medio ambiente y biodiversidad",
       "content": "<h1>Medio ambiente y biodiversidad</h1><p>Las actividades humanas (deforestación, sobreexplotación, quema de combustibles) generan <b>cambio climático</b>. La <b>biodiversidad</b> se estudia en niveles: genes, especies y ecosistemas.</p>",
       "quiz": {
-        "_id": "ObjectId",
+        "_id": "idq1",
         "questions": [
-          { "id": "q1", "type": "single", "prompt": "¿Qué actividad causa cambio climático?", "options": ["Reciclar","Quema de combustibles"], "answer": "Quema de combustibles" },
-          { "id": "q2", "type": "single", "prompt": "¿Cuál NO es un nivel de biodiversidad?", "options": ["Genes","Colores"], "answer": "Colores" },
-          { "id": "q3", "type": "single", "prompt": "Los tres niveles de biodiversidad son:", "options": ["Genes, especies y ecosistemas","Plantas, animales y hongos"], "answer": "Genes, especies y ecosistemas" }
+          { "id": "p1", "type": "single", "prompt": "¿Qué actividad causa cambio climático?", "options": ["Reciclar","Quema de combustibles"], "answer": "Quema de combustibles" },
+          { "id": "p2", "type": "single", "prompt": "¿Cuál NO es un nivel de biodiversidad?", "options": ["Genes","Colores"], "answer": "Colores" },
+          { "id": "p3", "type": "single", "prompt": "Los tres niveles de biodiversidad son:", "options": ["Genes, especies y ecosistemas","Plantas, animales y hongos"], "answer": "Genes, especies y ecosistemas" }
         ]
       }
     }
