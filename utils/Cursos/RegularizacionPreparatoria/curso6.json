@@ -1,5 +1,5 @@
 {
-    "_id": "ObjectId",
+    "_id": "idc6",
     "title": "Pensamiento Filosófico y Humanidades I – Pensamiento propio y crítica. I2 A1 S1",
     "description": "Introducción a la filosofía y el pensamiento crítico.",
     "resources": [
@@ -10,11 +10,11 @@
   },
     "lessons": [
       {
-        "_id": "ObjectId",
+        "_id": "idl1",
         "title": "Filosofía y pensamiento crítico",
         "content": "<h1>La filosofía</h1><p>La filosofía nace de la pregunta. Pensar filosóficamente significa cuestionar lo que parece obvio y reflexionar sobre la vida, la verdad y la justicia.</p>",
         "quiz": {
-          "_id": "ObjectId",
+          "_id": "idq1",
           "questions": [
             {
               "id": "p1",

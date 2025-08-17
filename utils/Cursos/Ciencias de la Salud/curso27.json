@@ -1,0 +1,26 @@
+{
+  "_id": "idc27",
+  "title": "Física aplicada al cuerpo",
+  "description": "Cinemática, dinámica y electricidad en la vida cotidiana",
+  "resources": [
+    { "type": "video", "url": "https://www.youtube.com/watch?v=_X-BTbwj3xU" }
+  ],
+  "riasec": {
+    "R": 2, "I": 3, "A": 0, "S": 0, "E": 0, "C": 0
+  },
+  "lessons": [
+    {
+      "_id": "idl1",
+      "title": "Física aplicada al cuerpo",
+      "content": "<h1>Física aplicada al cuerpo</h1><p>La física describe el movimiento y la energía:<br><b>Cinemática:</b> notación científica y conversiones.<br><b>Dinámica:</b> leyes de Newton, fuerza y trabajo.<br><b>Electricidad:</b> cargas y la ley de Coulomb.</p>",
+      "quiz": {
+        "_id": "idq1",
+        "questions": [
+          { "id": "p1", "type": "single", "prompt": "La fórmula de la fuerza es:", "options": ["F = m·a","F = m/v"], "answer": "F = m·a" },
+          { "id": "p2", "type": "single", "prompt": "¿Quién formuló las leyes del movimiento?", "options": ["Einstein","Newton"], "answer": "Newton" },
+          { "id": "p3", "type": "single", "prompt": "La carga de un electrón es:", "options": ["Negativa","Positiva"], "answer": "Negativa" }
+        ]
+      }
+    }
+  ]
+}

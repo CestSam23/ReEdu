@@ -1,5 +1,5 @@
 {
-    "_id": "ObjectId",
+    "_id": "idc8",
     "title": "Cultura Digital II – Herramientas digitales y gestión de información. I2 C2",
     "description": "Uso de buscadores y gestión de la información en línea.",
     "resources": [
@@ -10,11 +10,11 @@
   },
     "lessons": [
       {
-        "_id": "ObjectId",
+        "_id": "idl1",
         "title": "Buscadores web",
         "content": "<h1>Buscadores</h1><p>Un buscador web (como Google) permite encontrar información en internet. Se escribe una palabra clave y aparecen resultados relevantes.</p>",
         "quiz": {
-          "_id": "ObjectId",
+          "_id": "idq1",
           "questions": [
             {
               "id": "p1",

@@ -1,5 +1,5 @@
 {
-    "_id": "ObjectId",
+    "_id": "idc14",
     "title": "Lengua y Comunicación III – Análisis literario y reseña crítica",
     "description": "Movimientos literarios y reseña crítica.",
     "resources": [
@@ -10,11 +10,11 @@
   },
     "lessons": [
       {
-        "_id": "ObjectId",
+        "_id": "idl1",
         "title": "Literatura y reseña crítica",
         "content": "<h1>Literatura y reseña crítica</h1><p>Un movimiento literario reúne autores con ideas comunes (ej: Romanticismo: sentimientos y libertad). La reseña crítica analiza una obra, no solo la describe.</p>",
         "quiz": {
-          "_id": "ObjectId",
+          "_id": "idq1",
           "questions": [
             {
               "id": "p1",

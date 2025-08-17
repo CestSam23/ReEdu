@@ -1,5 +1,5 @@
 {
-    "_id": "ObjectId",
+    "_id": "idc3",
     "title": "Pensamiento Matemático I – Lógica y operaciones básicas. I3 C1",
     "description": "Números enteros y operaciones básicas.",
     "resources": [
@@ -10,11 +10,11 @@
   },
     "lessons": [
       {
-        "_id": "ObjectId",
+        "_id": "idl1",
         "title": "Enteros y operaciones",
         "content": "<h1>Números enteros</h1><p>Los números enteros incluyen positivos, negativos y cero. Ejemplos: −2, 0, 5. Con ellos se pueden realizar suma, resta, multiplicación y división.</p>",
         "quiz": {
-          "_id": "ObjectId",
+          "_id": "idq1",
           "questions": [
             {
               "id": "p1",
