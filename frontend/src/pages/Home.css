@@ -131,10 +131,18 @@
 
 .courses-carousel {
   display: flex;
-  overflow-x: auto;
+  overflow-x: auto; /* scroll horizontal */
   gap: 16px;
   padding-bottom: 12px;
   scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+
+  /* Ocultar barra de scroll */
+  scrollbar-width: none; /* Firefox */
+}
+.courses-carousel::-webkit-scrollbar {
+  display: none; /* Chrome, Edge, Safari */
 }
 
 .course-card {
@@ -144,6 +152,8 @@
   border-radius: 12px;
   flex-shrink: 0;
   text-align: center;
+
+  scroll-snap-align: start; /* cada tarjeta se alinea al inicio */
 }
 
 .course-image {
@@ -156,3 +166,147 @@
   justify-content: center;
 }
 
+.carousel-wrapper {
+  position: relative;
+}
+
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 32px;
+  background: rgba(0,0,0,0.6);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0; /* inicialmente ocultas */
+  transition: opacity 0.3s, background 0.2s;
+  z-index: 5;
+}
+
+.carousel-arrow.left {
+  left: 16px;
+}
+
+.carousel-arrow.right {
+  right: 16px;
+}
+
+.carousel-wrapper:hover .carousel-arrow {
+  opacity: 1; /* aparecen al pasar el cursor */
+}
+
+.carousel-arrow:hover {
+  background: rgba(108, 92, 231, 0.8);
+}
+
+.home-skills{
+  max-width: 800px;
+  margin: 0 auto 60px;
+  background: rgba(0,0,0,0.5);
+  padding: 24px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.skills-title {
+  background: black;
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 24px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.skills-description {
+  margin-bottom: 24px;
+  line-height: 1.6;
+}
+
+.skills-toggle {
+  padding: 12px 24px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  background-color: #6c5ce7;
+  color: white;
+  transition: transform 0.15s, opacity 0.2s;
+}
+
+.skills-toggle:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+
+/* Estilos para el árbol de habilidades */
+.skills-tree {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.tree-level {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.tree-node {
+  background: rgba(108, 92, 231, 0.2);
+  border: 2px solid #6c5ce7;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin: 0 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  min-width: 120px;
+}
+
+.tree-node:hover {
+  background: rgba(108, 92, 231, 0.4);
+  transform: translateY(-3px);
+}
+
+.tree-node.main {
+  background: rgba(108, 92, 231, 0.3);
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.tree-node.sub {
+  background: rgba(255, 255, 255, 0.1);
+  font-size: 16px;
+}
+
+.tree-connector {
+  position: absolute;
+  background: #6c5ce7;
+  width: 2px;
+  top: -20px;
+  height: 20px;
+  left: 50%;
+}
+
+.tree-node.has-children::after {
+  content: '+';
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-weight: bold;
+}
+
+.tree-node.expanded::after {
+  content: '-';
+}

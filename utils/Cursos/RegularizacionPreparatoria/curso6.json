@@ -1,5 +1,5 @@
 {
-    "_id": "idc6",
+    "_id":{"$oid":"68a15cc15beb60997f3d1d75"},
     "title": "Pensamiento Filosófico y Humanidades I – Pensamiento propio y crítica. I2 A1 S1",
     "description": "Introducción a la filosofía y el pensamiento crítico.",
     "resources": [

@@ -1,0 +1,17 @@
+{
+  "_id":{"$oid":"68a163a55beb60997f3d1d98"},
+  "title": "Fisico Matemáticas",
+  "description": "Ruta básica para Fisico Matemáticas",
+  "courses": [
+    { "courseId": "68a161ec5beb60997f3d1d8e", "order": 1 },
+    { "courseId": "68a161fe5beb60997f3d1d8f", "order": 2 },
+    { "courseId": "68a162195beb60997f3d1d90", "order": 3 },
+    { "courseId": "68a1622e5beb60997f3d1d91", "order": 4 },
+    { "courseId": "68a162435beb60997f3d1d92", "order": 5 },
+    { "courseId": "68a162555beb60997f3d1d93", "order": 6 },
+    { "courseId": "68a1626f5beb60997f3d1d94", "order": 7 },
+    { "courseId": "68a162875beb60997f3d1d95", "order": 8 },
+    { "courseId": "68a1629c5beb60997f3d1d96", "order": 9 },
+    { "courseId": "68a162b95beb60997f3d1d97", "order": 10 }
+  ]
+}

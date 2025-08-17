@@ -1,5 +1,5 @@
 {
-  "_id": "idc24",
+  "_id":{"$oid":"68a1604f5beb60997f3d1d88"},
   "title": "Medio ambiente y biodiversidad",
   "description": "Cambio climático y niveles de biodiversidad",
   "resources": [

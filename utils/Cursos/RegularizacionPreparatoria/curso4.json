@@ -1,5 +1,5 @@
 {
-    "_id": "idc4",
+    "_id":{"$oid":"68a15c815beb60997f3d1d73"},
     "title": "Cultura Digital I – Uso crítico de tecnologías. I2 C2",
     "description": "Buenas prácticas de seguridad y servicios digitales.",
     "resources": [

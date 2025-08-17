@@ -1,5 +1,5 @@
 {
-  "_id": "idc21",
+  "_id":{"$oid":"68a160195beb60997f3d1d85"},
   "title": "Cuerpo humano: sistemas y células",
   "description": "Funciones celulares en sistemas humanos",
   "resources": [

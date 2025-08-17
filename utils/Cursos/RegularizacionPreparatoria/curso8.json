@@ -1,5 +1,5 @@
 {
-    "_id": "idc8",
+   "_id":{"$oid":"68a15d015beb60997f3d1d77"},
     "title": "Cultura Digital II – Herramientas digitales y gestión de información. I2 C2",
     "description": "Uso de buscadores y gestión de la información en línea.",
     "resources": [

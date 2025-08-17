@@ -1,0 +1,169 @@
+/* Fondo y layout general */
+.login-wrapper {
+  position: relative;
+  min-height: 100vh;
+  color: white;
+  font-family: sans-serif;
+  overflow: hidden;
+}
+
+/* Gradiente morado/negro sin video */
+.login-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background:
+    radial-gradient(1200px 600px at 20% 10%, rgba(108, 92, 231, 0.25), transparent 60%),
+    radial-gradient(900px 500px at 80% 80%, rgba(108, 92, 231, 0.18), transparent 60%),
+    linear-gradient(135deg, #0b0716 0%, #120a2a 40%, #1a1038 70%, #2b1655 100%);
+}
+
+/* Contenedor principal */
+.login-main {
+  display: grid;
+  place-items: center;
+  padding: 80px 16px;
+}
+
+/* Tarjeta de login */
+.login-card {
+  width: min(480px, 92vw);
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(108, 92, 231, 0.35);
+  border-radius: 16px;
+  padding: 28px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.45);
+  backdrop-filter: blur(8px);
+}
+
+/* Títulos */
+.login-title {
+  margin: 0 0 6px;
+  font-size: clamp(22px, 3.6vw, 28px);
+  font-weight: 800;
+}
+.login-subtitle {
+  margin: 0 0 22px;
+  opacity: 0.85;
+}
+
+/* Etiquetas e inputs */
+.login-label {
+  display: block;
+  margin: 14px 0 8px;
+  font-weight: 700;
+}
+.login-input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.06);
+  color: white;
+  outline: none;
+  transition: border 0.2s, box-shadow 0.2s, background 0.2s;
+}
+.login-input:focus {
+  border-color: #6c5ce7;
+  box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.25);
+  background: rgba(255,255,255,0.08);
+}
+.login-input.error {
+  border-color: #e76c6c;
+  box-shadow: 0 0 0 3px rgba(231, 108, 108, 0.25);
+}
+
+/* Campo contraseña con toggle */
+.login-pass {
+  position: relative;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.login-toggle {
+  white-space: nowrap;
+  border-radius: 8px;
+  height: 40px;
+  padding: 0 12px;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.06);
+  color: white;
+  cursor: pointer;
+}
+
+/* Errores */
+.login-error {
+  display: inline-block;
+  margin-top: 6px;
+  font-size: 14px;
+  color: #ffb4b4;
+}
+
+/* Acciones secundarias */
+.login-actions {
+  margin: 14px 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.login-remember {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  opacity: 0.9;
+}
+.login-link {
+  color: #bdb4ff;
+  text-decoration: none;
+}
+.login-link:hover {
+  text-decoration: underline;
+}
+
+/* Botón principal (reusa .btn de Home.css para coherencia) */
+.login-submit {
+  width: 100%;
+  margin-top: 8px;
+}
+.login-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Pie */
+.login-footer {
+  margin-top: 16px;
+  text-align: center;
+  opacity: 0.9;
+}
+
+/* Header del login con dos extremos */
+.login-header {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 32px;
+  background: rgba(0, 0, 0, 0.6);
+  border-bottom: 1px solid rgba(255,255,255,0.15);
+  z-index: 5;
+}
+
+/* Título izquierdo */
+.login-title-left {
+  font-size: 20px;
+  font-weight: 700;
+  color: #bdb4ff;
+  text-decoration: none;
+}
+.login-title-left:hover {
+  text-decoration: underline;
+}
+
+/* Texto derecho */
+.login-title-right {
+  font-size: 20px;
+  font-weight: 800;
+  color: white;
+  margin: 0;
+}

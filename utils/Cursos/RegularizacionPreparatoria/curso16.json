@@ -1,5 +1,5 @@
 {
-    "_id": "idc16",
+    "_id":{"$oid":"68a15dc55beb60997f3d1d7f"},
     "title": "Pensamiento Matemático III – Ecuaciones y sistemas",
     "description": "Resolución de ecuaciones básicas.",
     "resources": [

@@ -1,0 +1,26 @@
+{
+  "_id":{"$oid":"68a1622e5beb60997f3d1d91"},
+  "title": "Derivada de una función",
+  "description": "Definición y reglas en funciones algebraicas y trascendentales",
+  "resources": [
+    { "type": "paragraph" }
+  ],
+  "riasec": {
+    "R": 0, "I": 3, "A": 0, "S": 0, "E": 0, "C": 1
+  },
+  "lessons": [
+    {
+      "_id": "idl1",
+      "title": "Derivada de una función",
+      "content": "<h1>Derivada de una función</h1><p>La derivada mide la pendiente instantánea. Ejemplo: si f(x)=x², entonces f’(x)=2x. También se derivan sen(x), cos(x) y e^x con reglas conocidas.</p>",
+      "quiz": {
+        "_id": "ObjectId",
+        "questions": [
+          { "id": "p1", "type": "single", "prompt": "La derivada de x² es:", "options": ["2x","x"], "answer": "2x" },
+          { "id": "p2", "type": "single", "prompt": "La derivada representa:", "options": ["Pendiente de la curva","Área"], "answer": "Pendiente de la curva" },
+          { "id": "p3", "type": "single", "prompt": "La derivada de sen(x) es:", "options": ["cos(x)","-sen(x)"], "answer": "cos(x)" }
+        ]
+      }
+    }
+  ]
+}

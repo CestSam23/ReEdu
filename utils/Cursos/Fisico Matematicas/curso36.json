@@ -1,0 +1,26 @@
+{
+  "_id":{"$oid":"68a1626f5beb60997f3d1d94"},
+  "title": "Enlaces y reacciones químicas",
+  "description": "Enlaces iónico, covalente y metálico; tipos de reacciones",
+  "resources": [
+    { "type": "video", "url": "https://www.youtube.com/watch?v=xfvuQSJD2HM" }
+  ],
+  "riasec": {
+    "R": 1, "I": 3, "A": 0, "S": 0, "E": 0, "C": 0
+  },
+  "lessons": [
+    {
+      "_id": "idl1",
+      "title": "Enlaces y reacciones químicas",
+      "content": "<h1>Enlaces y reacciones químicas</h1><p>Los átomos se unen por enlaces iónicos, covalentes y metálicos. Reacciones básicas: síntesis, descomposición y desplazamientos sencillo y doble.</p>",
+      "quiz": {
+        "_id": "ObjectId",
+        "questions": [
+          { "id": "p1", "type": "single", "prompt": "El enlace iónico ocurre entre:", "options": ["Metal + no metal","Dos metales"], "answer": "Metal + no metal" },
+          { "id": "p2", "type": "single", "prompt": "Una reacción de descomposición es:", "options": ["AB → A + B","A + B → AB"], "answer": "AB → A + B" },
+          { "id": "p3", "type": "single", "prompt": "El enlace covalente comparte:", "options": ["Electrones","Protones"], "answer": "Electrones" }
+        ]
+      }
+    }
+  ]
+}

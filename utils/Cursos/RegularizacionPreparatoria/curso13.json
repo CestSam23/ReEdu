@@ -1,5 +1,5 @@
 {
-    "_id": "idc13",
+    "_id":{"$oid":"68a15d8a5beb60997f3d1d7c"},
     "title": "Ciencias Naturales II – Energía y calor",
     "description": "Conceptos básicos de energía y calor.",
     "resources": [

@@ -1,5 +1,5 @@
 {
-  "_id": "idc22",
+  "_id":{"$oid":"68a1602c5beb60997f3d1d86"},
   "title": "Genética y herencia",
   "description": "Conceptos de genética y leyes de Mendel",
   "resources": [

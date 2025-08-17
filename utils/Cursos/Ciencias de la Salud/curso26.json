@@ -1,5 +1,5 @@
 {
-  "_id": "idc26",
+  "_id":{"$oid":"68a160725beb60997f3d1d8a"},
   "title": "Enlaces, reacciones y disoluciones",
   "description": "Tipos de enlaces, reacciones químicas y concentración",
   "resources": [

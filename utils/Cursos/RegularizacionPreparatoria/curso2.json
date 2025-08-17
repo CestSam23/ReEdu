@@ -1,5 +1,5 @@
 {
-    "_id": "idc2",
+    "_id":{"$oid":"68a15c455beb60997f3d1d71"},
     "title": "Inglés I – Presentaciones y expresiones básicas. S2 E1",
     "description": "Saludos, presentaciones y expresiones básicas.",
     "resources": [

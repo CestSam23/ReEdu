@@ -1,0 +1,26 @@
+{
+  "_id":{"$oid":"68a162555beb60997f3d1d93"},
+  "title": "Estructura atómica y tabla periódica",
+  "description": "Partículas subatómicas, configuración electrónica y propiedades",
+  "resources": [
+    { "type": "paragraph" }
+  ],
+  "riasec": {
+    "R": 0, "I": 3, "A": 0, "S": 0, "E": 0, "C": 1
+  },
+  "lessons": [
+    {
+      "_id": "idl1",
+      "title": "Estructura atómica y tabla periódica",
+      "content": "<h1>Estructura atómica y tabla periódica</h1><p>El átomo tiene protones, neutrones y electrones. La configuración electrónica distribuye electrones por niveles. La tabla ordena elementos por número atómico y propiedades periódicas.</p>",
+      "quiz": {
+        "_id": "ObjectId",
+        "questions": [
+          { "id": "p1", "type": "single", "prompt": "El número atómico indica:", "options": ["Protones","Neutrones"], "answer": "Protones" },
+          { "id": "p2", "type": "single", "prompt": "¿Quién creó la primera tabla periódica?", "options": ["Mendeleev","Newton"], "answer": "Mendeleev" },
+          { "id": "p3", "type": "single", "prompt": "¿El electrón tiene carga?", "options": ["Negativa","Positiva"], "answer": "Negativa" }
+        ]
+      }
+    }
+  ]
+}

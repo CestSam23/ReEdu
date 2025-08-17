@@ -1,0 +1,17 @@
+{
+  "_id":{"$oid":"68a160d15beb60997f3d1d8d"},
+  "title": "Ciencias de la salud",
+  "description": "Ruta básica para Ciencias de la Salud",
+  "courses": [
+    { "courseId": "68a15fde5beb60997f3d1d83", "order": 1 },
+    { "courseId": "68a1600a5beb60997f3d1d84", "order": 2 },
+    { "courseId": "68a160195beb60997f3d1d85", "order": 3 },
+    { "courseId": "68a1602c5beb60997f3d1d86", "order": 4 },
+    { "courseId": "68a160415beb60997f3d1d87", "order": 5 },
+    { "courseId": "68a1604f5beb60997f3d1d88", "order": 6 },
+    { "courseId": "68a160655beb60997f3d1d89", "order": 7 },
+    { "courseId": "68a160725beb60997f3d1d8a", "order": 8 },
+    { "courseId": "68a1608c5beb60997f3d1d8b", "order": 9 },
+    { "courseId": "68a1609f5beb60997f3d1d8c", "order": 10 }
+  ]
+}

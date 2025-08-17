@@ -1,0 +1,26 @@
+{
+  "_id":{"$oid":"68a162195beb60997f3d1d90"},
+  "title": "Demostración y ecuaciones trigonométricas",
+  "description": "Simplificación, cofunciones y resolución",
+  "resources": [
+    { "type": "video", "url": "https://www.youtube.com/watch?v=XH3htlWU9N4" }
+  ],
+  "riasec": {
+    "R": 0, "I": 3, "A": 0, "S": 0, "E": 0, "C": 1
+  },
+  "lessons": [
+    {
+      "_id": "idl1",
+      "title": "Demostración y ecuaciones trigonométricas",
+      "content": "<h1>Demostración y ecuaciones trigonométricas</h1><p>La simplificación y demostración de identidades reduce expresiones. Las cofunciones relacionan pares como sen(θ)=cos(90°−θ). Ecuaciones típicas: sen(x)=0, cos(x)=1, etc.</p>",
+      "quiz": {
+        "_id": "ObjectId",
+        "questions": [
+          { "id": "p1", "type": "single", "prompt": "¿La simplificación de identidades sirve para…?", "options": ["Reducir expresiones","Aumentar ecuaciones"], "answer": "Reducir expresiones" },
+          { "id": "p2", "type": "single", "prompt": "¿Cuál es una cofunción de sen(θ)?", "options": ["cos(90°−θ)","tan(θ)"], "answer": "cos(90°−θ)" },
+          { "id": "p3", "type": "single", "prompt": "¿sen(x)=0 se cumple en?", "options": ["x = n·π","x = n·90°"], "answer": "x = n·π" }
+        ]
+      }
+    }
+  ]
+}
