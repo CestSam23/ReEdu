@@ -427,11 +427,38 @@ function GeminiChatModal({ open, onClose }) {
   const inputRef = useRef(null);
   const bodyRef = useRef(null);
 
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+
   useEffect(() => {
     if (!open) return;
+
     const h = (e) => e.key === "Escape" && onClose();
     window.addEventListener("keydown", h);
     setTimeout(() => inputRef.current?.focus(), 0);
+
+    // Carga el intro personalizado  cada que se abre
+    (async () => {
+      try {
+        const token = localStorage.getItem('token');
+        if (!token) return; // quizá redirigir a login
+
+        const res = await fetch(`${API_URL}/api/gemini/intro`, {
+          method: 'GET',
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        const data = await res.json().catch(() => ({}));
+        if (res.ok && data?.ok) {
+          setMessages([{ role: 'assistant', text: data.intro }]);
+        } else {
+          // mensaje corto
+          setMessages([{ role: 'assistant', text: "Hola, soy tu asistente. Puedo recomendarte qué estudiar según tus resultados cuando tenga acceso a tu información." }]);
+        }
+      } catch (e) {
+        console.error(e);
+        setMessages([{ role: 'assistant', text: "No pude cargar tu resumen personalizado, pero puedo ayudarte con tus dudas." }]);
+      }
+    })();
+
     return () => window.removeEventListener("keydown", h);
   }, [open, onClose]);
 
@@ -448,21 +475,22 @@ function GeminiChatModal({ open, onClose }) {
     setPrompt("");
     setSending(true);
     try {
-      // Backend de Gemini (ajusta tu endpoint):
-      const res = await fetch("/api/gemini/chat", {
+      const token = localStorage.getItem('token');
+      const res = await fetch(`${API_URL}/api/gemini/chat`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ prompt: p, history: messages })
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({ message: p, history: messages })
       });
-      if (!res.ok) throw new Error("Error en /api/gemini/chat");
-      const data = await res.json();
-      const text = data.text || data.reply || "(sin respuesta)";
+      const data = await res.json().catch(() => ({}));
+      const text = data?.reply || "(sin respuesta)";
       setMessages((m) => [...m, { role: "assistant", text }]);
     } catch (e) {
-      // Fallback demo porque no hay back conectado
       setMessages((m) => [
         ...m,
-        { role: "assistant", text: "Demo (sin backend): aquí verías la respuesta de Gemini 👋" }
+        { role: "assistant", text: "No pude contactar al asistente. Intenta de nuevo." }
       ]);
       console.error(e);
     } finally {
@@ -526,7 +554,7 @@ function GeminiChatModal({ open, onClose }) {
   );
 }
 
-/* Icono estilo Gemini  */
+
 function GeminiIcon({ size = 28 }) {
   return (
     <svg width={size} height={size} viewBox="0 0 64 64" aria-hidden="true">

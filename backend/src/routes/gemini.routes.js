@@ -1,12 +1,13 @@
-import express from 'express';
-import multer from 'multer';
+import { Router } from 'express';
+import { requireAuth } from '../middlewares/auth.js';
 import { GeminiController } from '../controllers/gemini.controller.js';
 
-const upload = multer({ storage: multer.memoryStorage() });
-const router = express.Router();
+const router = Router();
 
-router.post('/generate', GeminiController.generateText);
-router.post('/chat', GeminiController.chat);
-router.post('/analyze-image', upload.single('image'), GeminiController.analyzeImage);
+// Primer mensaje personalizado (requiere sesión)
+router.get('/intro', requireAuth, GeminiController.intro);
+
+// Chat normal
+router.post('/chat', requireAuth, GeminiController.chat);
 
 export default router;
