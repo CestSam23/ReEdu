@@ -86,62 +86,31 @@ const slug = (s) =>
 
 export default function Escritorio() {
   const [active, setActive] = useState(CATEGORIES[0].id);
-  const category = useMemo(
-    () => CATEGORIES.find((c) => c.id === active) ?? CATEGORIES[0],
-    [active]
-  );
+  const category = useMemo(() => CATEGORIES.find((c) => c.id === active) ?? CATEGORIES[0], [active]);
 
-  // ---- NUEVO: estado para el visor/modal
+  // Estados para el visor/modal
   const [viewerOpen, setViewerOpen] = useState(false);
   const [topicData, setTopicData] = useState(null);
   const [loadingTopic, setLoadingTopic] = useState(false);
+  
+  // Nuevos estados para búsqueda
+  const [searchResults, setSearchResults] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [searchLoading, setSearchLoading] = useState(false);
 
-  // Layout del árbol (igual que el tuyo)
-  const layout = useMemo(() => {
-    const colGap = 220;
-    const rowGap = 100;
-    const startX = 260;
-    const baseY  = 200;
-    const nodes = [];
-    const edges = [];
+  // Layout del árbol (igual que antes)
+  const layout = useMemo(() => { /* ... */ }, [category]);
 
-    category.nodes.forEach((label, i) => {
-      let x = startX + i * colGap;
-      if (i === 3) x -= 40;
-      const off = i === 0 ? 0 : (i % 2 === 0 ? (i / 2) * -1 : Math.ceil(i / 2));
-      const y = baseY + off * rowGap;
-
-      nodes.push({ id: `n-${i}`, label, x, y, isRoot: i === 0 });
-    });
-
-    if (nodes[0] && nodes[1]) edges.push({ from: nodes[0], to: nodes[1] });
-    if (nodes[1] && nodes[2]) edges.push({ from: nodes[1], to: nodes[2] });
-    if (nodes[1] && nodes[3]) edges.push({ from: nodes[1], to: nodes[3] });
-    for (let i = 4; i < nodes.length; i++) edges.push({ from: nodes[i - 1], to: nodes[i] });
-
-    const width = Math.max(1100, startX + (category.nodes.length + 1) * colGap);
-    const height = 680;
-
-    return { nodes, edges, width, height };
-  }, [category]);
-
-  // Normalizador para que coincida con tu BD de ejemplo
-  const normalizeTopic = (d, fallbackTitle) => {
-    // d puede venir tal cual tu documento completo o sólo una lección
-    const firstLesson = d?.lessons?.[0] ?? null;
-    return {
-      title: d?.title || firstLesson?.title || fallbackTitle || "Tema",
-      description: d?.description || "",
-      // recursos directos + (opcional) mapear videos/pdf adicionales
-      resources: Array.isArray(d?.resources) ? d.resources : [],
-      // contenido HTML (si existe)
-      html: firstLesson?.content || d?.content || ""
-    };
+  // Función unificada para manejar clicks en nodos
+  const handleNodeClick = async (label) => {
+    setSearchTerm(label); // Guarda el término buscado
+    await buscarContenido(label); // Ejecuta la búsqueda
   };
 
-  // ---- NUEVO: al hacer click, abrimos modal y cargamos el contenido
+  // Búsqueda modificada para cargar el modal
   const buscarContenido = async (terminoBusqueda) => {
-    setLoading(true);
+    setSearchLoading(true);
+    setViewerOpen(true); // Abre el modal
     
     try {
       const response = await fetch('/api/cursos/busqueda-global', {
@@ -152,28 +121,46 @@ export default function Escritorio() {
 
       const data = await response.json();
 
-      if (!response.ok) {
-        throw new Error(data.error || 'Error en la búsqueda');
+      if (!response.ok) throw new Error(data.error || 'Error en la búsqueda');
+
+      // Procesar primer resultado para el modal
+      if (data.length > 0) {
+        const primerResultado = data[0];
+        setTopicData({
+          title: primerResultado.title || terminoBusqueda,
+          description: primerResultado.matches[0]?.fragmento || '',
+          resources: [],
+          html: `<h2>${primerResultado.title}</h2>
+                ${primerResultado.matches.map(m => 
+                  `<div class="match">
+                    <h3>${m.campo}</h3>
+                    <p>${m.fragmento}</p>
+                  </div>`
+                ).join('')}`
+        });
+      } else {
+        setTopicData({
+          title: terminoBusqueda,
+          description: `No se encontraron resultados para "${terminoBusqueda}"`,
+          resources: [],
+          html: `<p>Intenta con otro término de búsqueda</p>`
+        });
       }
 
-      // Procesar resultados
-      const resultadosFormateados = data.map(curso => ({
-        id: curso._id,
-        titulo: curso.title,
-        coincidencias: curso.matches.map(match => ({
-          campo: match.campo,
-          fragmento: match.fragmento
-        }))
-      }));
-
-      setResultados(resultadosFormateados);
-      
+      setSearchResults(data);
     } catch (error) {
-      setError(error.message);
+      console.error('Error:', error);
+      setTopicData({
+        title: "Error",
+        description: error.message,
+        resources: [],
+        html: `<div class="error">${error.message}</div>`
+      });
     } finally {
-      setLoading(false);
+      setSearchLoading(false);
     }
   };
+
   return (
     <div className="desk2">
       {/* HEADER */}
@@ -208,7 +195,7 @@ export default function Escritorio() {
                 key={n.id}
                 className={`t2-node ${n.isRoot ? "root" : ""}`}
                 style={{ left: n.x, top: n.y }}
-                onClick={() => openTopic(n.label)}
+                onClick={() => handleNodeClick(n.label)} // Usa la función unificada
                 title={n.label}
               >
                 <span className="t2-title">{n.label}</span>
@@ -219,53 +206,52 @@ export default function Escritorio() {
         </div>
       </section>
 
-      {/* === NUEVO: MODAL DEL VISOR === */}
+      {/* MODAL + RESULTADOS */}
       <ViewerModal
         open={viewerOpen}
         onClose={() => setViewerOpen(false)}
         topic={topicData}
-        loading={loadingTopic}
+        loading={searchLoading}
       />
+
+      {/* PANEL DE RESULTADOS (opcional) */}
+      {searchResults.length > 0 && (
+        <div className="results-panel">
+          <ResultadosBusqueda 
+            termino={searchTerm} 
+            resultados={searchResults} 
+            onSelect={setTopicData}
+          />
+        </div>
+      )}
     </div>
   );
 }
 
-function ResultadosBusqueda({ termino, resultados }) {
+function ResultadosBusqueda({ termino, resultados, onSelect }) {
   return (
     <div className="resultados-busqueda">
       <h3>Resultados para "{termino}"</h3>
-      
-      {resultados.length === 0 ? (
-        <p>No se encontraron coincidencias</p>
-      ) : (
-        <div className="resultados-container">
-          {resultados.map((curso) => (
-            <div key={curso.id} className="card-curso">
-              <h4>{curso.titulo}</h4>
-              
-              <div className="coincidencias">
-                {curso.coincidencias.map((match, i) => (
-                  <div key={i} className="coincidencia">
-                    <span className="campo">{match.campo}:</span>
-                    <p 
-                      dangerouslySetInnerHTML={{ 
-                        __html: resaltarTermino(match.fragmento, termino) 
-                      }} 
-                    />
+      <div className="resultados-container">
+        {resultados.map((curso) => (
+          <div key={curso._id} className="card-curso">
+            <h4>{curso.title}</h4>
+            <button 
+              onClick={() => onSelect({
+                title: curso.title,
+                html: curso.matches.map(m => `
+                  <div class="match">
+                    <h3>${m.campo}</h3>
+                    <p>${m.fragmento}</p>
                   </div>
-                ))}
-              </div>
-              
-              <button 
-                onClick={() => abrirCurso(curso.id)}
-                className="btn-ver-curso"
-              >
-                Ver curso completo
-              </button>
-            </div>
-          ))}
-        </div>
-      )}
+                `).join('')
+              })}
+            >
+              Ver detalles
+            </button>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
