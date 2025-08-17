@@ -526,7 +526,7 @@ function GeminiChatModal({ open, onClose }) {
   );
 }
 
-/* Icono estilo Gemini (placeholder). Cambia por un <img src="/gemini.svg" /> si prefieres el oficial */
+/* Icono estilo Gemini  */
 function GeminiIcon({ size = 28 }) {
   return (
     <svg width={size} height={size} viewBox="0 0 64 64" aria-hidden="true">
