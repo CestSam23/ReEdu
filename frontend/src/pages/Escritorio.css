@@ -7,8 +7,7 @@
   --muted:#aeb6bf;
 }
 
-/* GRID GENERAL
-   Topbar arriba (full width), luego sidebar + main */
+/* GRID GENERAL*/
 .desk2{
   min-height: 100vh;
   background: var(--bg);
@@ -122,7 +121,6 @@
 
 
 /*intento de modal*/
-/* ============= MODAL (Viewer) ============= */
 .modal-overlay{
   position: fixed; inset: 0;
   display: grid; place-items: center;
@@ -199,7 +197,7 @@
   border: 1px solid #ddd;
 }
 
-/* ============= Tabs ============= */
+/* Tabs */
 .tabs{ display: flex; flex-direction: column; height: 100%; }
 .tabs-bar{
   display: flex; gap: 8px; flex-wrap: wrap;
@@ -223,7 +221,7 @@
 }
 .tabs-body{ flex: 1; min-height: 0; }
 
-/* ============= Viewers ============= */
+/*  Viewers  */
 .frame-wrap, .video-wrap, .img-wrap, .html-wrap{
   position: relative;
   height: 100%; width: 100%;
@@ -262,7 +260,7 @@
 .html-wrap h1, .html-wrap h2, .html-wrap h3{ color: #fff; margin: .2em 0; }
 .html-wrap p{ margin: 10px 0; }
 
-/* ============= Responsivo ============= */
+/*  Responsivo  */
 @media (max-width: 640px){
   .modal-card{
     width: 100%;
