@@ -8,6 +8,7 @@ import Escritorio from './pages/Escritorio.jsx'
 import Forms from './pages/forms.jsx'
 
 
+
 function App() {
   return (
     <Routes>
@@ -17,6 +18,7 @@ function App() {
       <Route path="/escritorio" element={<Escritorio />} />
       <Route path="/forms" element={<Forms />} />
       {/* Aquí puedes agregar más rutas según vayas creando más páginas */}
+      
     </Routes>
   )
 }
