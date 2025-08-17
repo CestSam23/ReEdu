@@ -1,0 +1,26 @@
+{
+  "_id": "idc30",
+  "title": "Identidades trigonométricas",
+  "description": "Básicas, suma y resta, múltiplos de ángulo",
+  "resources": [
+    { "type": "pdf", "url": "file:///home/samuel/Downloads/4.%20M%C3%B3dulo%20de%20trigonometr%C3%ADa%20-%20Cap%C3%ADtulo%205.pdf" }
+  ],
+  "riasec": {
+    "R": 0, "I": 3, "A": 0, "S": 0, "E": 0, "C": 2
+  },
+  "lessons": [
+    {
+      "_id": "idl1",
+      "title": "Identidades trigonométricas",
+      "content": "<h1>Identidades trigonométricas</h1><p>Las identidades permiten transformar expresiones: la fundamental sen²θ + cos²θ = 1; suma y resta, y múltiplos de ángulo facilitan el cálculo y la demostración.</p>",
+      "quiz": {
+        "_id": "ObjectId",
+        "questions": [
+          { "id": "p1", "type": "single", "prompt": "¿Cuál es la identidad fundamental?", "options": ["sen²θ + cos²θ = 1","senθ + cosθ = 1"], "answer": "sen²θ + cos²θ = 1" },
+          { "id": "p2", "type": "single", "prompt": "¿Cuál es cos(0°)?", "options": ["1","0"], "answer": "1" },
+          { "id": "p3", "type": "single", "prompt": "La suma de ángulos se expresa como:", "options": ["sen(a+b) = sena·cosb + cosa·senb","sen(a+b) = sena + senb"], "answer": "sen(a+b) = sena·cosb + cosa·senb" }
+        ]
+      }
+    }
+  ]
+}

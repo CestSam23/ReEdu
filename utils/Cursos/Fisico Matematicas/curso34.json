@@ -1,0 +1,26 @@
+{
+  "_id": "idc34",
+  "title": "Aplicaciones de la derivada",
+  "description": "Máximos, mínimos y optimización",
+  "resources": [
+    { "type": "video", "url": "https://www.youtube.com/watch?v=KYvTWs54EgE" }
+  ],
+  "riasec": {
+    "R": 0, "I": 3, "A": 0, "S": 0, "E": 0, "C": 1
+  },
+  "lessons": [
+    {
+      "_id": "idl1",
+      "title": "Aplicaciones de la derivada",
+      "content": "<h1>Aplicaciones de la derivada</h1><p>La derivada permite hallar máximos y mínimos de funciones y resolver problemas de optimización en contextos como economía, física e ingeniería.</p>",
+      "quiz": {
+        "_id": "ObjectId",
+        "questions": [
+          { "id": "p1", "type": "single", "prompt": "La derivada ayuda a encontrar:", "options": ["Máximos y mínimos","Colores"], "answer": "Máximos y mínimos" },
+          { "id": "p2", "type": "single", "prompt": "En economía se usa para:", "options": ["Optimización","Decoración"], "answer": "Optimización" },
+          { "id": "p3", "type": "single", "prompt": "Un mínimo local es:", "options": ["Punto más bajo de una región","Punto más alto"], "answer": "Punto más bajo de una región" }
+        ]
+      }
+    }
+  ]
+}

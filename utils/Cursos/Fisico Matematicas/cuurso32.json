@@ -1,0 +1,26 @@
+{
+  "_id": "idc32",
+  "title": "Sistemas de ecuaciones lineales",
+  "description": "Métodos: sustitución, igualación, reducción y matrices",
+  "resources": [
+    { "type": "paragraph" }
+  ],
+  "riasec": {
+    "R": 0, "I": 3, "A": 0, "S": 0, "E": 0, "C": 1
+  },
+  "lessons": [
+    {
+      "_id": "idl1",
+      "title": "Sistemas de ecuaciones lineales",
+      "content": "<h1>Sistemas de ecuaciones lineales</h1><p>Un sistema lineal es un conjunto de ecuaciones que se resuelven simultáneamente. Métodos comunes: sustitución, igualación, reducción y Gauss-Jordan en matrices.</p>",
+      "quiz": {
+        "_id": "ObjectId",
+        "questions": [
+          { "id": "p1", "type": "single", "prompt": "El método más usado en 2x2 es:", "options": ["Sustitución","Integración"], "answer": "Sustitución" },
+          { "id": "p2", "type": "single", "prompt": "¿Qué significa que un sistema sea compatible?", "options": ["Tiene solución","No tiene solución"], "answer": "Tiene solución" },
+          { "id": "p3", "type": "single", "prompt": "En matrices, el método común es:", "options": ["Gauss-Jordan","Pitágoras"], "answer": "Gauss-Jordan" }
+        ]
+      }
+    }
+  ]
+}

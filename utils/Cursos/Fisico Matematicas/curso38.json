@@ -1,0 +1,26 @@
+{
+  "_id": "idc38",
+  "title": "Energía y electricidad",
+  "description": "Energía mecánica y conceptos básicos de electricidad",
+  "resources": [
+    { "type": "video", "url": "https://www.youtube.com/watch?v=8mSokZu2Vf0&t=69s" }
+  ],
+  "riasec": {
+    "R": 2, "I": 3, "A": 0, "S": 0, "E": 0, "C": 0
+  },
+  "lessons": [
+    {
+      "_id": "idl1",
+      "title": "Energía y electricidad",
+      "content": "<h1>Energía y electricidad</h1><p>Energía cinética (movimiento) y potencial (posición); trabajo y potencia, con conservación de la energía. Electricidad: cargas, fuerza y campo eléctricos, ideas básicas de circuitos.</p>",
+      "quiz": {
+        "_id": "ObjectId",
+        "questions": [
+          { "id": "p1", "type": "single", "prompt": "Energía cinética depende de:", "options": ["Masa y velocidad","Peso y tiempo"], "answer": "Masa y velocidad" },
+          { "id": "p2", "type": "single", "prompt": "La ley de Coulomb describe:", "options": ["Fuerza entre cargas","Fuerza de gravedad"], "answer": "Fuerza entre cargas" },
+          { "id": "p3", "type": "single", "prompt": "La energía se conserva, significa:", "options": ["No se crea ni destruye","Aumenta siempre"], "answer": "No se crea ni destruye" }
+        ]
+      }
+    }
+  ]
+}
