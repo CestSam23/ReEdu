@@ -1,77 +1,121 @@
-/* Variables básicas (mismo look morado/negro) */
 :root{
-  --bg: radial-gradient(1200px 600px at 20% 10%, rgba(108, 92, 231, 0.25), transparent 60%),
-        radial-gradient(900px 500px at 80% 80%, rgba(108, 92, 231, 0.18), transparent 60%),
-        linear-gradient(135deg, #0b0716 0%, #120a2a 40%, #1a1038 70%, #2b1655 100%);
-  --text: #fff;
-  --primary: #6c5ce7;
-  --ring: rgba(108, 92, 231, 0.25);
-  --btn-bg: #111827;
-  --btn-text: #fff;
-  --gap: 14px;
+  --bg:#2f343a;
+  --panel:#0e1114;
+  --panel2:#12161b;
+  --accent:#ff5a59;
+  --text:#e9eef4;
+  --muted:#aeb6bf;
 }
 
-/* Base mínima (si ya existe en otro CSS global, puedes omitir) */
-.page.simple{min-height:100dvh;display:grid;place-items:center;background:var(--bg);color:var(--text);padding:24px;font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,sans-serif}
-.stack{width:100%;max-width:880px;display:grid;gap:var(--gap);text-align:center}
-.question{font-size:clamp(28px,6vw,38px);font-weight:800;margin:0 0 8px}
-.btn{padding:12px 16px;border-radius:10px;border:1px solid transparent;background:var(--btn-bg);color:var(--btn-text);font-weight:700;cursor:pointer}
-.btn:hover{filter:brightness(.97)}
-
-/* Card contenedor */
-.home-skills{
-  max-width: 880px;
-  margin: 0 auto 40px;
-  background: rgba(0,0,0,0.5);
-  padding: 24px;
-  border-radius: 12px;
-  text-align: left;
-}
-.skills-title {
-  background: rgba(0,0,0,.6);
-  padding: 12px 16px;
-  border-radius: 8px;
-  margin-bottom: 14px;
-  font-size: 20px;
-  font-weight: bold;
-}
-.skills-description { margin-bottom: 12px; opacity: .9; }
-
-/* === Árbol VERTICAL === */
-.v-tree { position: relative; }
-
-/* Si quieres guías laterales en versión compacta, podrás añadirlas aquí.
-   Para "flat" (sin indentación) no hay guías ni padding extra. */
-.home-skills.compact .v-branch { border-left: 1px solid rgba(108,92,231,.25); padding-left: 8px; }
-.home-skills.flat    .v-branch { border-left: 0; padding-left: 0; }
-
-.v-branch { margin: 6px 0; }  /* separación vertical entre filas */
-
-.v-node{
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 12px;
-  border-radius: 10px;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.12);
-  color: #fff;
-  cursor: pointer;
-  transition: background .15s, transform .05s, border .15s, box-shadow .15s;
-}
-.v-node:hover{ background: rgba(255,255,255,0.10); }
-.v-node.main{ border-color: var(--primary); background: rgba(108,92,231,.18); font-weight:700; }
-.v-node.sub{  background: rgba(255,255,255,.06); }
-.v-node.has-children .v-label{ font-weight:600; }
-.v-node.expanded{ box-shadow: 0 0 0 3px var(--ring); }
-
-.v-toggle{
-  width: 22px; height: 22px;
-  display: grid; place-items: center;
-  border: 1px solid rgba(255,255,255,.18);
-  border-radius: 6px;
-  background: rgba(255,255,255,.06);
-  font-size: 13px; line-height: 1;
+/* GRID GENERAL
+   Topbar arriba (full width), luego sidebar + main */
+.desk2{
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  display: grid;
+  grid-template-rows: auto 1fr;
+  grid-template-columns: 280px 1fr;
+  grid-template-areas:
+    "topbar topbar"
+    "sidebar main";
 }
 
-.v-children{ margin-top: 6px; }
+/* TOPBAR */
+.desk2-topbar{
+  grid-area: topbar;
+  display:flex; align-items:center; gap:16px;
+  padding: 14px 18px;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  background: #1a1f24;
+}
+.desk2-home{
+  background: var(--accent);
+  color:#111; font-weight:800; text-decoration:none;
+  padding: 8px 12px; border-radius: 10px;
+}
+.desk2-title{
+  margin:0; font-size: 20px; font-weight: 800; letter-spacing:.3px;
+}
+
+/* SIDEBAR (debajo del topbar) */
+.desk2-sidebar{
+  grid-area: sidebar;
+  background:#1a1f24;
+  border-right:1px solid rgba(255,255,255,.06);
+  padding:18px;
+}
+.desk2-subtitle{ font-size:14px; color:var(--muted); margin:6px 2px 10px; }
+.desk2-cats{ list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:10px; }
+.desk2-chip{
+  width:100%; text-align:left; font-weight:700;
+  background:#0f1317; color:var(--text);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:18px; padding:10px 12px; cursor:pointer;
+}
+.desk2-chip.active{
+  background:var(--accent); color:#111; border-color:transparent;
+}
+
+/* MAIN */
+.desk2-main{
+  grid-area: main;
+  padding:18px;
+}
+
+/* TREE */
+.tree2{
+  position:relative;
+  width:100%; height:680px;
+  background: linear-gradient(180deg, var(--panel) 0%, var(--panel2) 100%);
+  border-radius:18px; border:1px solid rgba(255,255,255,.06);
+  box-shadow: 0 10px 24px rgba(0,0,0,.35);
+  overflow:hidden;
+}
+.tree2-svg{ position:absolute; inset:0; }
+
+/* LÍNEAS RECTAS */
+.tree2-edge{
+  stroke: var(--accent);
+  stroke-width: 3px;
+  stroke-linecap: round;
+  fill: none;
+  opacity: .95;
+}
+
+.tree2-nodes{ position:absolute; inset:0; }
+
+/* NODOS */
+.t2-node{
+  position:absolute; transform:translate(-50%, -50%);
+  min-width:200px; max-width:260px;
+  background:#0b0f13; border:1px solid rgba(255,255,255,.08);
+  border-radius:12px; padding:14px; text-align:left;
+  color:var(--text); cursor:pointer;
+  box-shadow: 0 6px 18px rgba(0,0,0,.35);
+  transition: transform .15s ease, box-shadow .15s ease, border-color .2s ease;
+}
+.t2-node:hover{
+  transform: translate(-50%, -50%) translateY(-2px);
+  border-color: rgba(255,90,89,.5);
+  box-shadow: 0 10px 22px rgba(0,0,0,.45), 0 0 0 2px rgba(255,90,89,.18) inset;
+}
+.t2-node.root{ background:#111315; }
+.t2-title{ display:block; font-weight:800; font-size:15px; line-height:1.2; }
+.t2-dots{ display:block; margin-top:6px; color:#cfd6de; opacity:.9; }
+
+/* Responsive */
+@media (max-width: 960px){
+  .desk2{ grid-template-columns: 220px 1fr; }
+  .tree2{ height:820px; }
+}
+@media (max-width: 768px){
+  .desk2{
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "topbar"
+      "sidebar"
+      "main";
+  }
+  .tree2{ height:920px; }
+}
