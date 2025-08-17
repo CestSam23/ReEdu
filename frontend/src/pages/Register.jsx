@@ -16,12 +16,33 @@ export default function SignupStepper() {
 
   const onChange = (e) => setForm({ ...form, [current.key]: e.target.value });
 
-  const next = () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch("http://localhost:5000/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          password: form.pass
+        })
+      });
+
+      const data = await response.json();
+      console.log(data);
+      alert(data.msg);
+    } catch (err) {
+      console.error("Error:", err);
+    }
+  };
+
+  const next = async (e) => {
     if (step < steps.length - 1) {
       setStep(step + 1);
     } else {
-      alert(`Registro completo: ${form.name} – ${form.email}`);
-      //probable back?
+      await handleSubmit(e);
     }
   };
 
@@ -34,21 +55,23 @@ export default function SignupStepper() {
       <section className="stack">
         <h1 className="question">{current.label}</h1>
 
-        <input
-          className="input"
-          type={current.type}
-          placeholder={current.placeholder}
-          value={form[current.key]}
-          onChange={onChange}
-          autoFocus
-        />
+        <form onSubmit={next}>
+          <input
+            className="input"
+            type={current.type}
+            placeholder={current.placeholder}
+            value={form[current.key]}
+            onChange={onChange}
+            autoFocus
+          />
 
-        <div className="actions">
-          <button className="btn ghost" onClick={back} disabled={step === 0}>Atrás</button>
-          <button className="btn" onClick={next}>
-            {step === steps.length - 1 ? "Crear cuenta" : "Siguiente"}
-          </button>
-        </div>
+          <div className="actions">
+            <button className="btn ghost" type="button" onClick={back} disabled={step === 0}>Atrás</button>
+            <button className="btn" type="submit">
+              {step === steps.length - 1 ? "Crear cuenta" : "Siguiente"}
+            </button>
+          </div>
+        </form>
 
         <button className="btn back" onClick={()=> window.location.href="/"} > Inicio</button>
         <p className="muted">

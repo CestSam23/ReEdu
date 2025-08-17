@@ -1,56 +1,40 @@
-import dotenv from 'dotenv';
-dotenv.config({ path: '../.env' }); // Ajusta según tu estructura
+// src/server.js
+import "dotenv/config";                 
+import express from "express";
+import cors from "cors";
+import mongoose from "mongoose";
+import { connectDB } from "./config/db.config.js";
+import authRoutes from "./routes/auth.routes.js";
 
-import app from './app.js';
-import { connectDB } from './config/db.config.js';
-import { geminiPro } from './services/gemini.service.js';
+const app = express();
+
+app.use(cors({
+  origin: process.env.CORS_ORIGIN?.split(",") || ["http://localhost:5173"],
+  credentials: true
+}));
+app.use(express.json());
+
+// Healthcheck
+app.get("/health", (_req, res) => {
+  res.json({ ok: true, mongo: mongoose.connection.readyState });
+});
+
+// Rutas
+app.use("/api/auth", authRoutes);
 
 const PORT = process.env.PORT || 5000;
 
-// 1. Conectar a MongoDB
-const startServer = async () => {
+const start = async () => {
   try {
     await connectDB();
-    
-    // 2. Validar conexión con Gemini
-    const geminiTest = await geminiPro.generateContent('Conexión de prueba');
-    if (!geminiTest.success) throw new Error('❌ Gemini no responde');
-
-    // 3. Iniciar servidor
     app.listen(PORT, () => {
-      console.log('\n' + '='.repeat(50));
-      console.log(`🚀 Servidor operativo en http://localhost:${PORT}`);
-      console.log(`🛡️  Entorno: ${process.env.NODE_ENV || 'development'}`);
-      console.log(`🗄️  MongoDB: ${mongoose.connection.host}`);
-      console.log(`🧠 Gemini: ${geminiTest.success ? 'Conectado' : 'Error'}`);
-      console.log('='.repeat(50) + '\n');
-      
-      // Mostrar rutas disponibles (opcional)
-      console.log('Endpoints disponibles:');
-      app._router.stack.forEach(r => {
-        if (r.route?.path) {
-          const methods = Object.keys(r.route.methods).map(m => m.toUpperCase());
-          console.log(`- ${methods.join('|')} ${r.route.path}`);
-        }
-      });
+      console.log(` API en http://localhost:${PORT}`);
+      console.log(`  Mongo host: ${mongoose.connection.host}`);
     });
-
-  } catch (error) {
-    console.error('⛔ Error al iniciar servidor:', error.message);
+  } catch (e) {
+    console.error(" No se pudo iniciar:", e);
     process.exit(1);
   }
 };
 
-// Manejar cierre elegante
-process.on('SIGTERM', () => {
-  console.log('🔻 Recibido SIGTERM. Cerrando servidor...');
-  mongoose.connection.close();
-  process.exit(0);
-});
-
-process.on('unhandledRejection', err => {
-  console.error('💥 Error no manejado:', err);
-  mongoose.connection.close();
-});
-
-startServer();
+start();
