@@ -1,0 +1,26 @@
+{
+  "_id": "ObjectId",
+  "title": "Célula y evolución celular",
+  "description": "Procariotas, eucariotas, transporte y división celular",
+  "resources": [
+    { "type": "video", "url": "https://www.youtube.com/watch?v=cj8dDTHGJBY" }
+  ],
+  "riasec": {
+    "R": 1, "I": 3, "A": 0, "S": 0, "E": 0, "C": 0
+  },
+  "lessons": [
+    {
+      "_id": "ObjectId",
+      "title": "Célula y evolución celular",
+      "content": "<h1>Célula y evolución celular</h1><p>Las procariotas no tienen núcleo definido; las eucariotas sí. Las células transportan sustancias por procesos pasivos (difusión, ósmosis) o activos (gasto de energía). La división celular ocurre por <b>mitosis</b> (crecimiento y reparación) y <b>meiosis</b> (formación de gametos).</p>",
+      "quiz": {
+        "_id": "ObjectId",
+        "questions": [
+          { "id": "q1", "type": "single", "prompt": "¿Cuál célula tiene núcleo definido?", "options": ["Procariota","Eucariota"], "answer": "Eucariota" },
+          { "id": "q2", "type": "single", "prompt": "La ósmosis es un transporte:", "options": ["Activo","Pasivo"], "answer": "Pasivo" },
+          { "id": "q3", "type": "single", "prompt": "¿Cuál división celular produce gametos?", "options": ["Mitosis","Meiosis"], "answer": "Meiosis" }
+        ]
+      }
+    }
+  ]
+}

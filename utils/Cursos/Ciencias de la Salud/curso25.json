@@ -1,0 +1,26 @@
+{
+  "_id": "ObjectId",
+  "title": "Átomo y tabla periódica",
+  "description": "Estructura del átomo y propiedades periódicas",
+  "resources": [
+    { "type": "video", "url": "https://www.youtube.com/watch?v=8KM8ysFtEOU&t=39s" }
+  ],
+  "riasec": {
+    "R": 0, "I": 3, "A": 0, "S": 0, "E": 0, "C": 1
+  },
+  "lessons": [
+    {
+      "_id": "ObjectId",
+      "title": "Átomo y tabla periódica",
+      "content": "<h1>Átomo y tabla periódica</h1><p>El <b>átomo</b> tiene electrones, protones y neutrones. El <b>número atómico</b> indica protones; el <b>número de masa</b>, protones + neutrones. La <b>tabla periódica</b> organiza los elementos según propiedades: radio atómico, electronegatividad y carácter metálico.</p>",
+      "quiz": {
+        "_id": "ObjectId",
+        "questions": [
+          { "id": "q1", "type": "single", "prompt": "El número atómico indica la cantidad de:", "options": ["Neutrones","Protones"], "answer": "Protones" },
+          { "id": "q2", "type": "single", "prompt": "¿Cuál partícula tiene carga negativa?", "options": ["Protón","Electrón"], "answer": "Electrón" },
+          { "id": "q3", "type": "single", "prompt": "La electronegatividad mide:", "options": ["Atracción de electrones","Masa del átomo"], "answer": "Atracción de electrones" }
+        ]
+      }
+    }
+  ]
+}
