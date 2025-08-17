@@ -1,0 +1,26 @@
+{
+  "_id": "ObjectId",
+  "title": "Genética y herencia",
+  "description": "Conceptos de genética y leyes de Mendel",
+  "resources": [
+    { "type": "pdf", "url": "http://colegiodelfuturo.zunun.org/uploads/teaching_materials/books/8HIEChLeyesdeMendel.pdf" }
+  ],
+  "riasec": {
+    "R": 0, "I": 3, "A": 0, "S": 0, "E": 0, "C": 1
+  },
+  "lessons": [
+    {
+      "_id": "ObjectId",
+      "title": "Genética y herencia",
+      "content": "<h1>Genética y herencia</h1><p>La genética estudia la herencia. <b>Mendel</b> describió cómo los rasgos se transmiten. <br><b>Herencia mendeliana:</b> dominancia, recesividad. <br><b>No mendeliana:</b> codominancia, herencia ligada al sexo.</p>",
+      "quiz": {
+        "_id": "ObjectId",
+        "questions": [
+          { "id": "q1", "type": "single", "prompt": "¿Quién es el padre de la genética?", "options": ["Newton","Mendel"], "answer": "Mendel" },
+          { "id": "q2", "type": "single", "prompt": "El color de ojos heredado por dominancia es ejemplo de:", "options": ["Herencia mendeliana","No mendeliana"], "answer": "Herencia mendeliana" },
+          { "id": "q3", "type": "single", "prompt": "¿Cuál de estas NO es herencia mendeliana?", "options": ["Codominancia","Recesiva"], "answer": "Codominancia" }
+        ]
+      }
+    }
+  ]
+}

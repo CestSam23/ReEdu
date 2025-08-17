@@ -1,0 +1,26 @@
+{
+  "_id": "ObjectId",
+  "title": "Origen y diversidad biológica",
+  "description": "Selección natural, dominios y reinos de la vida",
+  "resources": [
+    { "type": "video", "url": "https://www.youtube.com/watch?v=24vv1jHj6-w" }
+  ],
+  "riasec": {
+    "R": 1, "I": 3, "A": 0, "S": 0, "E": 0, "C": 0
+  },
+  "lessons": [
+    {
+      "_id": "ObjectId",
+      "title": "Origen y diversidad biológica",
+      "content": "<h1>Origen y diversidad biológica</h1><p>La vida surgió hace miles de millones de años y se diversificó por <b>selección natural</b>: los más adaptados sobreviven. Actualmente se reconocen <b>tres dominios</b> (Bacteria, Archaea, Eukarya) y <b>seis reinos</b> (Animalia, Plantae, Fungi, Protista, Archaea, Bacteria).</p>",
+      "quiz": {
+        "_id": "ObjectId",
+        "questions": [
+          { "id": "q1", "type": "single", "prompt": "La selección natural fue propuesta por:", "options": ["Darwin","Mendel"], "answer": "Darwin" },
+          { "id": "q2", "type": "single", "prompt": "¿Cuántos dominios de vida se reconocen?", "options": ["3","6"], "answer": "3" },
+          { "id": "q3", "type": "single", "prompt": "Un hongo pertenece al reino:", "options": ["Plantae","Fungi"], "answer": "Fungi" }
+        ]
+      }
+    }
+  ]
+}

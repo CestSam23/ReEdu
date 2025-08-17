@@ -1,0 +1,26 @@
+{
+  "_id": "ObjectId",
+  "title": "Enlaces, reacciones y disoluciones",
+  "description": "Tipos de enlaces, reacciones químicas y concentración",
+  "resources": [
+    { "type": "paragraph" }
+  ],
+  "riasec": {
+    "R": 0, "I": 3, "A": 0, "S": 0, "E": 0, "C": 1
+  },
+  "lessons": [
+    {
+      "_id": "ObjectId",
+      "title": "Enlaces, reacciones y disoluciones",
+      "content": "<h1>Enlaces, reacciones y disoluciones</h1><p>Los átomos se unen por <b>enlaces iónicos, covalentes y metálicos</b>. Reacciones químicas básicas: síntesis, descomposición y desplazamiento. Las disoluciones se miden en <b>% masa, ppm, molaridad (M) y normalidad (N)</b>.</p>",
+      "quiz": {
+        "_id": "ObjectId",
+        "questions": [
+          { "id": "q1", "type": "single", "prompt": "El enlace iónico ocurre entre:", "options": ["Metal + no metal","Dos no metales"], "answer": "Metal + no metal" },
+          { "id": "q2", "type": "single", "prompt": "¿Qué significa ppm?", "options": ["Partes por millón","Peso por masa"], "answer": "Partes por millón" },
+          { "id": "q3", "type": "single", "prompt": "¿Qué tipo de reacción es AB → A + B?", "options": ["Síntesis","Descomposición"], "answer": "Descomposición" }
+        ]
+      }
+    }
+  ]
+}
