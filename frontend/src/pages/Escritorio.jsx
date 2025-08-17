@@ -140,15 +140,14 @@ export default function Escritorio() {
   };
 
   // ---- NUEVO: al hacer click, abrimos modal y cargamos el contenido
-  const openTopic = async (label) => {
-    setViewerOpen(true);
-    setLoadingTopic(true);
-
+  const buscarContenido = async (terminoBusqueda) => {
+    setLoading(true);
+    
     try {
-      const response = await fetch('/api/cursos/buscar', {
+      const response = await fetch('/api/cursos/busqueda-global', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ titulo: label })
+        body: JSON.stringify({ termino: terminoBusqueda })
       });
 
       const data = await response.json();
@@ -157,26 +156,24 @@ export default function Escritorio() {
         throw new Error(data.error || 'Error en la búsqueda');
       }
 
-      // Selecciona el mejor match (podrías mostrar un selector si hay varios)
-      const bestMatch = data[0]; 
-      setTopicData(normalizeTopic(bestMatch, label));
+      // Procesar resultados
+      const resultadosFormateados = data.map(curso => ({
+        id: curso._id,
+        titulo: curso.title,
+        coincidencias: curso.matches.map(match => ({
+          campo: match.campo,
+          fragmento: match.fragmento
+        }))
+      }));
+
+      setResultados(resultadosFormateados);
       
     } catch (error) {
-      console.error('Error:', error);
-      setTopicData({
-        title: label,
-        description: `Error al cargar: ${error.message}`,
-        resources: [],
-        html: `<div class="error">
-                <h3>No se pudo cargar "${label}"</h3>
-                <p>${error.message}</p>
-              </div>`
-      });
+      setError(error.message);
     } finally {
-      setLoadingTopic(false);
+      setLoading(false);
     }
   };
-
   return (
     <div className="desk2">
       {/* HEADER */}
@@ -231,6 +228,52 @@ export default function Escritorio() {
       />
     </div>
   );
+}
+
+function ResultadosBusqueda({ termino, resultados }) {
+  return (
+    <div className="resultados-busqueda">
+      <h3>Resultados para "{termino}"</h3>
+      
+      {resultados.length === 0 ? (
+        <p>No se encontraron coincidencias</p>
+      ) : (
+        <div className="resultados-container">
+          {resultados.map((curso) => (
+            <div key={curso.id} className="card-curso">
+              <h4>{curso.titulo}</h4>
+              
+              <div className="coincidencias">
+                {curso.coincidencias.map((match, i) => (
+                  <div key={i} className="coincidencia">
+                    <span className="campo">{match.campo}:</span>
+                    <p 
+                      dangerouslySetInnerHTML={{ 
+                        __html: resaltarTermino(match.fragmento, termino) 
+                      }} 
+                    />
+                  </div>
+                ))}
+              </div>
+              
+              <button 
+                onClick={() => abrirCurso(curso.id)}
+                className="btn-ver-curso"
+              >
+                Ver curso completo
+              </button>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// Helper para resaltar texto
+function resaltarTermino(texto, termino) {
+  const regex = new RegExp(`(${termino})`, 'gi');
+  return texto.replace(regex, '<mark>$1</mark>');
 }
 
 /* =======================
