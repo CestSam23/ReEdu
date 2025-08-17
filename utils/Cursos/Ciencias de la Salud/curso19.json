@@ -1,5 +1,5 @@
 {
-  "_id": "idc19",
+  "_id":{"$oid":"68a15fde5beb60997f3d1d83"},
   "title": "Evolución de la vida y química del origen",
   "description": "Teoría quimiosintética y biomoléculas",
   "resources": [

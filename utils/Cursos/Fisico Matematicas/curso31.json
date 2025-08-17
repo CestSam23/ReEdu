@@ -1,5 +1,5 @@
 {
-  "_id": "idc31",
+  "_id":{"$oid":"68a162195beb60997f3d1d90"},
   "title": "Demostración y ecuaciones trigonométricas",
   "description": "Simplificación, cofunciones y resolución",
   "resources": [

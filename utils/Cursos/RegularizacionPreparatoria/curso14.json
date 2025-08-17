@@ -1,5 +1,5 @@
 {
-    "_id": "idc14",
+    "_id":{"$oid":"68a15d9a5beb60997f3d1d7d"},
     "title": "Lengua y Comunicación III – Análisis literario y reseña crítica",
     "description": "Movimientos literarios y reseña crítica.",
     "resources": [

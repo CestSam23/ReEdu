@@ -1,5 +1,5 @@
 {
-    "_id": "idc9",
+    "_id":{"$oid":"68a15d195beb60997f3d1d78"},
     "title": "Lengua y Comunicación II – Ensayo y escritura clara. A2 E1",
     "description": "Redacción de ensayos y reseñas.",
     "resources": [

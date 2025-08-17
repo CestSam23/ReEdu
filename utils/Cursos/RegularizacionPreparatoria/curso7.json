@@ -1,5 +1,5 @@
 {
-    "_id": "idc7",
+    "_id":{"$oid":"68a15ce65beb60997f3d1d76"},
     "title": "Ciencias Sociales I – Necesidades y organización social. S3 E1",
     "description": "Organización de la sociedad y comunidades.",
     "resources": [

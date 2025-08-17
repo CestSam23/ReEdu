@@ -1,5 +1,5 @@
 {
-  "_id": "idc29",
+  "_id":{"$oid":"68a161ec5beb60997f3d1d8e"},
   "title": "Funciones trigonométricas",
   "description": "Definición, gráficas y ángulos notables",
   "resources": [

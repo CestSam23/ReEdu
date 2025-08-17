@@ -1,5 +1,5 @@
 {
-  "_id": "idc25",
+  "_id":{"$oid":"68a160655beb60997f3d1d89"},
   "title": "Átomo y tabla periódica",
   "description": "Estructura del átomo y propiedades periódicas",
   "resources": [

@@ -1,5 +1,5 @@
 {
-  "_id": "idc23",
+  "_id":{"$oid":"68a160415beb60997f3d1d87"},
   "title": "Origen y diversidad biológica",
   "description": "Selección natural, dominios y reinos de la vida",
   "resources": [

@@ -1,5 +1,5 @@
 {
-  "_id": "idc20",
+  "_id":{"$oid":"68a1600a5beb60997f3d1d84"},
   "title": "Célula y evolución celular",
   "description": "Procariotas, eucariotas, transporte y división celular",
   "resources": [

@@ -1,5 +1,5 @@
 {
-    "_id": "idc5",
+    "_id":{"$oid":"68a15c9f5beb60997f3d1d74"},
     "title": "Ciencias Naturales I – Materia y fenómenos naturales. I3 R1",
     "description": "Materia: propiedades y ejemplos.",
     "resources": [

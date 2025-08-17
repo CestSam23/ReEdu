@@ -1,5 +1,5 @@
 {
-  "_id": "idc32",
+  "_id":{"$oid":"68a162b95beb60997f3d1d97"},
   "title": "Sistemas de ecuaciones lineales",
   "description": "Métodos: sustitución, igualación, reducción y matrices",
   "resources": [

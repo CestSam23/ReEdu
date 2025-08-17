@@ -1,5 +1,5 @@
 {
-  "_id": "idc34",
+  "_id":{"$oid":"68a162435beb60997f3d1d92"},
   "title": "Aplicaciones de la derivada",
   "description": "Máximos, mínimos y optimización",
   "resources": [

@@ -1,5 +1,5 @@
 {
-    "_id": "idc17",
+    "_id":{"$oid":"68a15ddb5beb60997f3d1d80"},
     "title": "Ciencias Naturales III – Sistema terrestre y ecosistemas",
     "description": "Subsistemas de la Tierra y ecosistemas.",
     "resources": [

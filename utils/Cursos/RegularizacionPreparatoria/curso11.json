@@ -1,5 +1,5 @@
 {
-    "_id": "idc11",
+    "_id":{"$oid":"68a15d635beb60997f3d1d7a"},
     "title": "Pensamiento Matemático II – Aritmética y álgebra básica. I3",
     "description": "Introducción al álgebra: monomios e incógnitas.",
     "resources": [

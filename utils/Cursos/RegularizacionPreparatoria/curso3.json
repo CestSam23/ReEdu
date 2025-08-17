@@ -1,5 +1,5 @@
 {
-    "_id": "idc3",
+    "_id":{"$oid":"68a15c6c5beb60997f3d1d72"},
     "title": "Pensamiento Matemático I – Lógica y operaciones básicas. I3 C1",
     "description": "Números enteros y operaciones básicas.",
     "resources": [

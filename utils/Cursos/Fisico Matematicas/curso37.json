@@ -1,5 +1,5 @@
 {
-  "_id": "idc37",
+  "_id":{"$oid":"68a162875beb60997f3d1d95"},
   "title": "Movimiento y leyes de Newton",
   "description": "MRU, MRUA, parabólico y leyes de Newton",
   "resources": [

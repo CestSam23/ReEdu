@@ -1,5 +1,5 @@
 {
-    "_id": "idc18",
+    "_id":{"$oid":"68a15df35beb60997f3d1d81"},
     "title": "Pensamiento Filosófico y Humanidades II – Ética, ontología y género",
     "description": "Estudio de la ética y valores como la igualdad de género.",
     "resources": [
