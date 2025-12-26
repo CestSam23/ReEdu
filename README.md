@@ -9,7 +9,11 @@ Herramientas Utilizadas:
  - MongoDb
  - Gemini API
  - Git y Github
-
+## Integración con IA
 ![Integracion con Ia](/utils/imgs/ia.jpeg)
+
+## Rutas de Aprendizaje
 ![Rutas de Aprendizaje](/utils/imgs/ruta.jpeg)
+
+## Interfaz Intuitiva
 ![Interfaz Front Intuitiva](/utils/imgs/main.jpeg)
